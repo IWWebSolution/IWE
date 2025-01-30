@@ -1,12 +1,4 @@
-/*--------------------------------------------------
-Template Name: limupa;
-Description: limupa - Digital Products Store ECommerce Bootstrap 4 Template;
-Template URI:;
-Author Name:HasTech;
-Author URI:;
-Version: 1;
-Note: main.js, All Default Scripting Languages For This Theme Included In This File.
------------------------------------------------------
+/*-------------------------------------------------------------------------------------------------------
 		CSS INDEX
 		================
 		01. Li's Meanmenu
@@ -560,7 +552,45 @@ $(document).ready(function() {
     fetchRequirements();
 });
 
+/*----------------------------------------*/
+/* 27. Membership Details
+/*----------------------------------------*/
+document.addEventListener('DOMContentLoaded', () => {
+	const membershipContainer = document.getElementById('membership-details');
+	
+	// Simulate fetching membership details
+	const fetchMembershipDetails = () => {
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				resolve({
+					plan: 'Premium',
+					startDate: '2023-01-01',
+					endDate: '2024-01-01',
+					features: ['Priority Support', 'Access to Exclusive Deals', 'Free Shipping'],
+				});
+			}, 1000);
+		});
+	};
+
+	// Populate membership details
+	fetchMembershipDetails().then((details) => {
+		membershipContainer.innerHTML = `
+			<h4>Your Membership</h4>
+			<p><strong>Plan:</strong> ${details.plan}</p>
+			<p><strong>Start Date:</strong> ${details.startDate}</p>
+			<p><strong>End Date:</strong> ${details.endDate}</p>
+			<h5>Features:</h5>
+			<ul>
+				${details.features.map(feature => `<li>${feature}</li>`).join('')}
+			</ul>
+			<a href="#" class="btn">Upgrade Plan</a>
+		`;
+	});
+});
+
 })(jQuery);
+
+
 /*----------------------------------------------------------------------------------------------------*/
 /*------------------------------------------> The End <-----------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------*/
