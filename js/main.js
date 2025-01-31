@@ -588,6 +588,57 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
+
+/*----------------------------------------*/
+/* 28. Sorting Products
+/*----------------------------------------*/
+document.getElementById('sort-by').addEventListener('change', function () {
+    const sortBy = this.value; // Get the selected value
+    sortProducts(sortBy); // Call the sorting function
+});
+
+function sortProducts(sortBy) {
+    const productContainer = document.querySelector('.product-area'); // Container holding all products
+    const products = Array.from(productContainer.querySelectorAll('.single-product-wrap')); // Get all product elements
+
+    products.sort((a, b) => {
+        const aValue = getSortValue(a, sortBy);
+        const bValue = getSortValue(b, sortBy);
+
+        if (sortBy === 'name-asc' || sortBy === 'price-asc' || sortBy === 'model-asc') {
+            return aValue > bValue ? 1 : -1; // Ascending order
+        } else if (sortBy === 'name-desc' || sortBy === 'price-desc' || sortBy === 'model-desc') {
+            return aValue < bValue ? 1 : -1; // Descending order
+        } else if (sortBy === 'rating') {
+            return bValue - aValue; // Highest rating first
+        } else {
+            return 0; // Relevance (no sorting)
+        }
+    });
+
+    // Clear the container and append sorted products
+    productContainer.innerHTML = '';
+    products.forEach(product => productContainer.appendChild(product));
+}
+
+function getSortValue(product, sortBy) {
+    switch (sortBy) {
+        case 'name-asc':
+        case 'name-desc':
+            return product.querySelector('.product_name').textContent.trim().toLowerCase();
+        case 'price-asc':
+        case 'price-desc':
+            return parseFloat(product.querySelector('.new-price').textContent.replace('$', ''));
+        case 'rating':
+            return parseFloat(product.querySelector('.rating-box').getAttribute('data-rating'));
+        case 'model-asc':
+        case 'model-desc':
+            return product.querySelector('.model').textContent.trim().toLowerCase();
+        default:
+            return 0;
+    }
+}
+
 })(jQuery);
 
 

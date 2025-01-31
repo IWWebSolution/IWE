@@ -1,11 +1,4 @@
 /*-----------------------------------------------------------------------------------
-		Template Name: limupa - Digital Products Store ECommerce Bootstrap 4 Template
-		Template URI: http://bootexperts.com
-		Description: This is digital products store html5 template for eCommerce websites, nice and clean design;
-		Author: HasTech
-		Author URI: 
-		Version: 1.0
------------------------------------------------------------------------------------
 		CSS INDEX
 		===================
 		01. Default Style
@@ -1988,78 +1981,73 @@ textarea:focus {
 
 .trade-assurance-header {
     display: flex; /* Flexbox for header */
-    align-items: flex-start; /* Center items vertically */
+    align-items: center; /* Center items vertically */
     margin-bottom: 20px; /* Space below header */
-	align-items: center;
 }
 
 .trade-assurance-header img {
     width: 100px; /* Set width for the image */
     height: auto; /* Maintain aspect ratio */
     margin-right: 15px; /* Space between image and text */
-	align-items: center;
 }
+
 .trade-assurance-icon-text {
     display: flex; /* Use flexbox for icon and text */
     align-items: center; /* Center items vertically */
-    margin-right: 0px; /* Space between icon-text and cards */
 }
-.trade-assurance-header h2 {
-    font-size: 30px; /* Font size for description */
-    color: #555; /* Text color */
-}
+
 .trade-assurance-header p {
     font-size: 16px; /* Font size for description */
     color: #555; /* Text color */
 }
 
 .trade-assurance-cards {
-    display: grid; /* Use grid for card layout */
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    column-gap: 10px;
-	row-gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 15px; /* Space between cards */
 }
 
-.card {
-    border: 1px solid #ddd; /* Border for cards */
-    border-radius: 8px; /* Rounded corners */
-    padding: 15px; /* Padding inside cards */
-    text-align: center; /* Center text */
-    transition: transform 0.3s; /* Smooth transition for hover effect */
-	max-width: 160px;
+.curd {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.card:hover {
-    transform: translateY(-5px); /* Lift effect on hover */
+.curd:hover {
+    transform: translateY(-5px);
 }
 
-.card img {
-    width: 100%; /* Make image fill the card */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 10px; /* Space below image */
-	align-items: center;
-	height: 100px;
-	width: 100px;
+.curd img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
 }
 
-.card h3 {
-    font-size: 14px; /* Font size for card heading */
-    color: #333; /* Text color */
+.curd h3 {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
 }
 
-.card h3 a {
-    text-decoration: none; /* Remove underline from links */
-    color: inherit; /* Inherit color from h3 */
+.curd h3 a {
+    text-decoration: none;
+    color: inherit;
 }
 
-.card h3 a:hover {
-    text-decoration: underline; /* Underline on hover */
+.curd h3 a:hover {
+    text-decoration: underline;
 }
 
 /* Optional: Add a media query for responsiveness */
 @media (max-width: 768px) {
     .trade-assurance-cards {
-        grid-template-columns: 1fr; /* Single column on smaller screens */
+        grid-template-columns: repeat(2, 1fr); /* Keep 2 columns even on smaller screens */
     }
 }
 /*Header Bottom Megamenu*/
