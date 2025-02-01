@@ -19,6 +19,7 @@
   padding: 20px;
   width: 400px; /* Slightly wider */
   max-width: 90%; /* Responsive width */
+  animation: fadeIn 0.3s ease-out;
 }
 
 .popup-overlay {
@@ -41,6 +42,16 @@
   justify-content: space-between;
   align-items: center;
   color: #333; /* Modern dark gray */
+}
+
+.popup-header a {
+  color: #0a2351; /* Dark blue for linked headings */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.popup-header a:hover {
+  color: #007bff; /* Blue hover effect for linked headings */
 }
 
 .popup-close {
@@ -72,11 +83,22 @@
   transition: background-color 0.3s, transform 0.2s;
 }
 
+#popup-list li a {
+  color: #555; /* Lighter font color for list items */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
 #popup-list li:hover {
   background-color: #0a2351; /* Highlight on hover */
   color: white;
   transform: translateX(5px); /* Subtle movement */
 }
+
+#popup-list li:hover a {
+  color: white; /* White text on hover */
+}
+
 #popup-list li {
   padding: 10px;
   margin: 5px 0;
