@@ -1,70 +1,84 @@
-window.addEventListener('load', function(){
-    new Glider(document.querySelector('.glider'), {
+window.addEventListener('load', function () {
+  new Glider(document.querySelector('.glider'), {
     slidesToShow: 1.2,
     slidesToScroll: 1,
     draggable: true,
     dots: '.dots',
-    dragVelocity: 1.5,  
+    dragVelocity: 1.5,
     arrows: {
       prev: '.glider-prev',
-      next: '.glider-next'
+      next: '.glider-next',
     },
-      responsive: [
+    responsive: [
       {
-      // screens greater than >= 775px
+        // screens greater than >= 775px
         breakpoint: 500,
         settings: {
           slidesToShow: 1.5,
-          slidesToScroll: 1
-        }
+          slidesToScroll: 1,
+        },
       },
-    {
-      // screens greater than >= 775px
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 2.2,
-        slidesToScroll: 1
-      }
-    },{
-      // screens greater than >= 1024px
-      breakpoint: 1000,
-      settings: {
-        slidesToShow: 3.2,
-        slidesToScroll: 1,
-        itemWidth: 120
-      }
-    }
-   ]
+      {
+        // screens greater than >= 775px
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2.2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        // screens greater than >= 1024px
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 3.2,
+          slidesToScroll: 1,
+          itemWidth: 120,
+        },
+      },
+    ],
   });
-  
-})
+});
 
 let backStack = [];
 
 function openPopup(title, subcategories) {
-  document.getElementById('popup-header').innerText = title;
+  // If there are no subcategories, make the category clickable and navigate to a new page
+  if (!subcategories || subcategories.length === 0) {
+    window.location.href = `#${title}`; // Replace with the actual URL you want to navigate to
+    return;
+  }
+
+  // Make the heading clickable
+  const popupHeader = document.getElementById('popup-header');
+  popupHeader.innerHTML = `<a href="#${title}" target="_blank">${title}</a>`; // Wrap the title in an <a> tag
 
   // Populate the subcategories
   const list = document.getElementById('popup-list');
   list.innerHTML = ''; // Clear previous items
-  subcategories.forEach(subcategory => {
+  subcategories.forEach((subcategory) => {
     const li = document.createElement('li');
-    li.textContent = subcategory.name || subcategory; // Handle nested or flat subcategories
-    li.style.cursor = 'pointer';
+    const link = document.createElement('a');
+    link.href = `#${subcategory.name || subcategory}`; // Set the link (you can modify this to point to the desired URL)
+    link.textContent = subcategory.name || subcategory; // Handle nested or flat subcategories
+    link.style.cursor = 'pointer';
+    link.target = '_blank'; // Open in a new tab
 
     // Attach click event to open subcategories, if available
-    li.onclick = () => {
+    link.onclick = (e) => {
       if (subcategory.subcategories) {
+        e.preventDefault(); // Prevent the link from navigating
         backStack.push({ title, subcategories }); // Save current state
         openSubPopup(subcategory.name, subcategory.subcategories);
       }
     };
 
+    li.appendChild(link);
     list.appendChild(li);
   });
 
   // Toggle back button visibility
-  document.getElementById('back-button').style.display = backStack.length > 0 ? 'block' : 'none';
+  document.getElementById('back-button').style.display =
+    backStack.length > 0 ? 'block' : 'none';
 
   // Show popup and overlay
   document.getElementById('popup').style.display = 'block';
@@ -73,26 +87,33 @@ function openPopup(title, subcategories) {
 
 // Function to open a sub-pop-up
 function openSubPopup(title, subSubcategories) {
-  document.getElementById('popup-header').innerText = title;
+  // Make the heading clickable
+  const popupHeader = document.getElementById('popup-header');
+  popupHeader.innerHTML = `<a href="#${title}" target="_blank">${title}</a>`; // Wrap the title in an <a> tag
 
   // Populate the sub-subcategories
   const list = document.getElementById('popup-list');
   list.innerHTML = ''; // Clear previous items
-  subSubcategories.forEach(subSubcategory => {
-      const li = document.createElement('li');
-      li.textContent = subSubcategory;
-      list.appendChild(li);
+  subSubcategories.forEach((subSubcategory) => {
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = `#${subSubcategory}`; // Set the link (you can modify this to point to the desired URL)
+    link.textContent = subSubcategory;
+    link.target = '_blank'; // Open in a new tab
+    li.appendChild(link);
+    list.appendChild(li);
   });
 
   document.getElementById('back-button').style.display = 'block';
 }
 
 function goBack() {
-  if (backStack.length > 0) { 
+  if (backStack.length > 0) {
     const previousState = backStack.pop(); // Get the last state
     openPopup(previousState.title, previousState.subcategories);
   }
 }
+
 // Function to close the pop-up
 function closePopup() {
   document.getElementById('popup').style.display = 'none';
@@ -114,111 +135,116 @@ const categories = [
     subcategories: [
       {
         name: 'Dairy Products',
-        subcategories: ['Milk','Cheese','Butter','Ice-Cream','Paneer']
+        subcategories: ['Milk', 'Cheese', 'Butter', 'Ice-Cream', 'Paneer'],
       },
       {
         name: 'Confectionery & Bakery Products',
-        subcategories: ['Chocolates', 'Cookies', 'Biscuit', 'Birthday Cake', 'Candy']
+        subcategories: ['Chocolates', 'Cookies', 'Biscuit', 'Birthday Cake', 'Candy'],
       },
       {
         name: 'Cooking Spices & Masala',
-        subcategories: ['Cinnamon', 'Ginger', 'Turmeric', 'Coriander', 'Garam Masala']
+        subcategories: ['Cinnamon', 'Ginger', 'Turmeric', 'Coriander', 'Garam Masala'],
       },
       {
         name: 'Beverages',
-        subcategories: ['Beer', 'Ice', 'Coconut Water', 'Apple Cider Vinegar']
+        subcategories: ['Beer', 'Ice', 'Coconut Water', 'Apple Cider Vinegar'],
       },
       {
         name: 'Dry Fruits',
-        subcategories: ['Almond', 'Cashews', 'Walnuts', 'Dates', 'Foxnuts']
+        subcategories: ['Almond', 'Cashews', 'Walnuts', 'Dates', 'Foxnuts'],
       },
       {
-        name: 'Black Tea'
-      }
-    ]
+        name: 'Black Tea',
+      },
+    ],
   },
   {
     name: 'Agriculture',
     subcategories: [
       {
         name: 'Fresh Flowers & Plants',
-        subcategories: ['Rose', 'Marigold', 'Orchids', 'Money Plant', 'Wheat Grass']
+        subcategories: ['Rose', 'Marigold', 'Orchids', 'Money Plant', 'Wheat Grass'],
       },
       {
         name: 'Food Grains & Cereals',
-        subcategories: ['Oats', 'Rice', 'Jaggery', 'Wheat']
+        subcategories: ['Oats', 'Rice', 'Jaggery', 'Wheat'],
       },
       {
         name: 'Fruits & Vegetables',
-        subcategories: ['Mango', 'Apple', 'Blackberry', 'Dragon Fruit', 'Onion', 'Potato', 'Chilly']
+        subcategories: ['Mango', 'Apple', 'Blackberry', 'Dragon Fruit', 'Onion', 'Potato', 'Chilly'],
       },
       {
         name: 'Agricultural Equipments & Supplies',
-        subcategories: ['Seed Drills', 'Pickaxe', 'Other Equipments','Agricultural Tools']
-      }
-    ]
+        subcategories: ['Seed Drills', 'Pickaxe', 'Other Equipments', 'Agricultural Tools'],
+      },
+    ],
   },
   {
     name: 'Fashion & Apparel',
     subcategories: [
       {
         name: 'Leather Clothing',
-        subcategories: ['Leather Jacket', 'Waist Coat', 'Leather Belts', 'Leather Gloves', 'Leather Pants']
+        subcategories: ['Leather Jacket', 'Waist Coat', 'Leather Belts', 'Leather Gloves', 'Leather Pants'],
       },
       {
         name: 'Men',
-        subcategories: ['Shirts', 'T-Shirts', 'Jeans', 'Watch', 'Wallet', 'Shoes']
+        subcategories: ['Shirts', 'T-Shirts', 'Jeans', 'Watch', 'Wallet', 'Shoes'],
       },
       {
         name: 'Women',
-        subcategories: ['Anarkali Suits', 'Designer Blouses', 'Pakistani Suits', 'Anarkali Dress', 'Salwar Kameez']
+        subcategories: ['Anarkali Suits', 'Designer Blouses', 'Pakistani Suits', 'Anarkali Dress', 'Salwar Kameez'],
       },
       {
         name: 'Kids',
-        subcategories: ['Baby Dresses', 'Kids Lehenga', 'Tutu Dress', 'Kids Frocks']
-      }
-    ]
+        subcategories: ['Baby Dresses', 'Kids Lehenga', 'Tutu Dress', 'Kids Frocks'],
+      },
+    ],
   },
   {
     name: 'Ayurveda & Herbal',
     subcategories: [
       {
         name: 'Ayurvedic, Herbal Medicines & Products',
-        subcategories: ['Herbal Raw Material', 'Herbal Formulation Products', 'Herbal Medicines', 'Honey']
+        subcategories: ['Herbal Raw Material', 'Herbal Formulation Products', 'Herbal Medicines', 'Honey'],
       },
       {
         name: 'Ayurvedic Consultants',
-        subcategories: ['Hair Loss Treatment Service', 'Homeopathic Skin Treatment Service', 'Joint Pain Treatment Service', 'Piles Treatment Service']
+        subcategories: [
+          'Hair Loss Treatment Service',
+          'Homeopathic Skin Treatment Service',
+          'Joint Pain Treatment Service',
+          'Piles Treatment Service',
+        ],
       },
       {
         name: 'Herbal Foods',
-        subcategories: ['Pure & Natural Herbs', 'Pure Herbs', 'Aloe Vera', 'Split Cassia', 'Herb Plant']
+        subcategories: ['Pure & Natural Herbs', 'Pure Herbs', 'Aloe Vera', 'Split Cassia', 'Herb Plant'],
       },
       {
         name: 'Pure & Natural Herbs',
-        subcategories: ['Pure Herbs', 'Aloe Vera', 'Split Cassia', 'Herb Plant']
-      }
-    ]
+        subcategories: ['Pure Herbs', 'Aloe Vera', 'Split Cassia', 'Herb Plant'],
+      },
+    ],
   },
   {
     name: 'Transportation & Logistics',
     subcategories: [
       {
-        name: 'Transportation, Logistics & Air Freight Services'
+        name: 'Transportation, Logistics & Air Freight Services',
       },
       {
-        name: 'Warehousing & Cold Storage Services'
+        name: 'Warehousing & Cold Storage Services',
       },
       {
-        name: 'Cargo & Shipping Services'
+        name: 'Cargo & Shipping Services',
       },
       {
-        name: 'Packers & Movers'
-      }
-    ]
+        name: 'Packers & Movers',
+      },
+    ],
   },
   {
-    name: 'Packaging Material'
+    name: 'Packaging Material',
   },
   {
     name: 'Machinery & Equipment',
@@ -227,84 +253,84 @@ const categories = [
         name: 'Boiler & Boiler Parts',
       },
       {
-        name: 'Paper Work & Making Machinery'
+        name: 'Paper Work & Making Machinery',
       },
       {
-        name: 'Chemical Machinery & Plant'
+        name: 'Chemical Machinery & Plant',
       },
       {
-        name: 'Rubber Processing Machinery'
-      }
-    ]
+        name: 'Rubber Processing Machinery',
+      },
+    ],
   },
   {
-    name: 'Medical Equipment'
+    name: 'Medical Equipment',
   },
   {
     name: 'Personal Care & Hygiene',
     subcategories: [
       {
-        name: 'Aromatic & Essential Oils'
+        name: 'Aromatic & Essential Oils',
       },
       {
-        name: 'Cosmetics, Hair Care & Beauty Products'
+        name: 'Cosmetics, Hair Care & Beauty Products',
       },
       {
-        name: 'Health Care Products'
-      }
-    ]
+        name: 'Health Care Products',
+      },
+    ],
   },
   {
-    name: 'Safety Products'
+    name: 'Safety Products',
   },
   {
     name: 'Electronics & Electrical Goods',
     subcategories: [
       {
-        name: 'Solar & Renewable Energy Products'
+        name: 'Solar & Renewable Energy Products',
       },
       {
-        name: 'Generators, Turbines & Power Plants'
+        name: 'Generators, Turbines & Power Plants',
       },
       {
-        name: 'Electric Cables & Wires'
+        name: 'Electric Cables & Wires',
       },
       {
-        name: 'Electric Fittings & Components'
-      }
-    ]
+        name: 'Electric Fittings & Components',
+      },
+    ],
   },
   {
-    name: 'Handicraft & Gift Items'
+    name: 'Handicraft & Gift Items',
   },
   {
-    name: 'Automobile Tools & Equipments'
+    name: 'Automobile Tools & Equipments',
   },
   {
-    name: 'Chemical & Dyes Products'
+    name: 'Chemical & Dyes Products',
   },
   {
-    name: 'Plastic Products'
+    name: 'Plastic Products',
   },
   {
     name: 'Furniture & Home Decoration',
     subcategories: [
       {
         name: 'Bedroom, Bathroom & Kids Furniture',
-        subcategories: ['Almirah', 'Double Bed', 'Beds', 'Closet']
+        subcategories: ['Almirah', 'Double Bed', 'Beds', 'Closet'],
       },
       {
         name: 'Living Room & Plastic Furniture',
-        subcategories: ['Sofa Set', 'Cupboard', 'TV Unit', 'Chairs']
+        subcategories: ['Sofa Set', 'Cupboard', 'TV Unit', 'Chairs'],
       },
       {
         name: 'Metal Furniture Suppliers',
-        subcategories: ['Steel Furniture', 'Steel Almirah', 'Recliner Chair', 'Steel Table']
+        subcategories: ['Steel Furniture', 'Steel Almirah', 'Recliner Chair', 'Steel Table'],
       },
       {
         name: 'Furniture Hardware & Fittings',
-        subcategories: ['Table Top', 'Backrest', 'Bed Frames', 'Window Screens']
-      }
-    ]
-  }
+        subcategories: ['Table Top', 'Backrest', 'Bed Frames', 'Window Screens'],
+      },
+    ],
+  },
 ];
