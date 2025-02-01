@@ -56,7 +56,7 @@
                             <div class="contact-form-content pt-sm-55 pt-xs-55">
                                 <h3 class="contact-page-title">Tell Us Your Message</h3>
                                 <div class="contact-form">
-                                    <form  id="contact-form" action="http://demo.hasthemes.com/limupa-v3/limupa/mail.php" method="POST">
+                                    <form id="contactForm" method="POST">
                                         <div class="form-group">
                                             <label>Your Name <span class="required">*</span></label>
                                             <input type="text" name="name" id="name" required>
@@ -75,12 +75,13 @@
                                         </div>
                                         <div class="form-group mb-30">
                                             <label>Your Message</label>
-                                            <textarea name="msg" id="msg" ></textarea>
+                                            <textarea name="message" id="message"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" value="submit" id="submit" class="li-btn-3" name="submit">send</button>
+                                            <button type="submit" value="submit" id="submit" class="li-btn-3" name="submit">Send</button>
                                         </div>
                                     </form>
+                                    
                                 </div>
                                 <p class="form-messege"></p>
                             </div>
@@ -203,6 +204,58 @@
         <script src="js/scrollUp.min.js"></script>
         <!-- Main/Activator js -->
         <script src="js/main.js"></script>
+
+        <script>
+            document.getElementById('contactForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting traditionally
+            
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phoneNo = document.getElementById('phone_no').value;
+                const subject = document.getElementById('subject').value;
+                const msg = document.getElementById('message').value;
+            
+                // Create an object with form data
+                const formData = {
+                    name: name,
+                    email: email,
+                    phone_no: phoneNo,
+                    subject: subject,
+                    message: msg
+                };
+            
+                // Send the data via Fetch API
+                fetch('http://127.0.0.1:8000/contact/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', // Send data as JSON
+                        'X-CSRFToken': getCSRFToken() // Add CSRF token for security (if using Django)
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Something went wrong!');
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('Your message has been sent successfully!');
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('There was an error sending your message.');
+                });
+            });
+            
+            // Get CSRF token from the page (if using Django)
+            function getCSRFToken() {
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                return csrfToken;
+            }
+        </script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 // Load head content
@@ -238,7 +291,10 @@
                     })
                     .catch(error => console.error('Error loading footer:', error));
             });
+
         </script>
+                
+       
     </body>
 
 <!-- contact32:04-->
