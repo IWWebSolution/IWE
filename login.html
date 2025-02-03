@@ -24,17 +24,20 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb-30">
                             <!-- Login Form s-->
-                            <form action="#" >
+                            <form action="#" id="loginForm">
                                 <div class="login-form">
                                     <h4 class="login-title">Log In To Your Account</h4>
                                     <div class="row">
                                         <div class="col-md-12 col-12 mb-20">
                                             <label>Email Address<span class="red">*</span></label>
-                                            <input class="mb-0" type="email" placeholder="Email Address">
+                                            <input class="mb-0" id="email" name="email" type="email" placeholder="Email Address">
+                                            <span class="error" id="emailError"></span>
                                         </div>
                                         <div class="col-12 mb-20">
                                             <label>Password<span class="red">*</span></label>
-                                            <input class="mb-0" type="password" placeholder="Password">
+                                            <input class="mb-0" type="password" id="password" name="password" placeholder="Password">
+                                            <span class="error" id="passwordError"></span>
+                                            
                                         </div>
                                         <div class="col-md-8">
                                             <div class="check-box d-inline-block ml-0 ml-md-2 mt-10">
@@ -46,8 +49,9 @@
                                             <a href="#"> Forgotten password?</a>
                                         </div>
                                         <div class="col-md-12">
-                                            <button class="register-button mt-0">Login</button>
+                                            <button type="submit" class="register-button mt-0">Login</button>
                                         </div>
+                                        <div id="formResponse" style="display: none;"></div>
                                     </div>
                                 </div>
                             </form>
@@ -203,6 +207,68 @@
                         document.getElementById('footer').innerHTML = data;
                     })
                     .catch(error => console.error('Error loading footer:', error));
+            });
+        </script>
+
+
+        <script>
+            document.getElementById("loginForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Clear previous errors
+                document.getElementById("emailError").textContent = '';
+                document.getElementById("passwordError").textContent = '';
+                document.getElementById("formResponse").style.display = "none";
+                
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                let isValid = true;
+                if (!email || !email.includes("@")) {
+                    document.getElementById("emailError").textContent = "Please enter a valid email.";
+                    isValid = false;
+                }
+                if (!password || password.length < 6) {
+                    document.getElementById("passwordError").textContent = "Password must be at least 6 characters.";
+                    isValid = false;
+                }
+                if (isValid) {
+                    const loginData = { email, password };
+
+                    fetch("http://127.0.0.1:8000/login/", {  // Use correct backend API URL
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(loginData)
+                    })
+                    .then(response => response.json().then(data => ({ status: response.status, body: data }))) // Handle JSON parsing safely
+                    .then(result => {
+                        console.log("Response Data:", result); // Debugging
+
+                        if (result.status === 200) {
+                            document.getElementById("formResponse").style.display = "block";
+                            document.getElementById("formResponse").textContent = "Login successful! Redirecting...";
+
+                            // Store JWT token in localStorage
+                            localStorage.setItem("access_token", result.body.access_token);
+                            localStorage.setItem("refresh_token", result.body.refresh_token);
+
+                            // Redirect after 2 seconds
+                            setTimeout(() => {
+                                window.location.href = "http://127.0.0.1:5501/my-account.html"; // Change if needed
+                            }, 2000);
+                        } else {
+                            document.getElementById("formResponse").style.display = "block";
+                            document.getElementById("formResponse").textContent = "Login failed: " + (result.body.msg || "Unknown error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        document.getElementById("formResponse").style.display = "block";
+                        document.getElementById("formResponse").textContent = "An error occurred. Please try again.";
+                    });
+                }
             });
         </script>
     </body>
