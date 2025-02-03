@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= category.name %></title>
+  <title><%= realm.name %></title>
 </head>
 <body>
-  <h1><%= category.name %></h1>
+  <h1><%= realm.name %></h1>
+
+  <!-- Display the list of domains (subcategories) -->
+  <h2>Subcategories:</h2>
   <ul>
-    <% subcategories.forEach(subcategory => { %>
+    <% domainList.forEach(function(domain) { %> 
       <li>
-        <a href="/subcategory/<%= subcategory.slug %>"><%= subcategory.name %></a>
+        <a href="/domain/<%= domain.slug %>"><%= domain.name %></a>
       </li>
-    <% }) %>
+    <% }); %> 
   </ul>
 </body>
 </html>

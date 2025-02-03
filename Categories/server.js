@@ -1,103 +1,129 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const app = express();
 const port = 3000;
 
+app.use(express.json());
+
 // Set up EJS as the templating engine
 app.set('view engine', 'ejs');
-app.set('views', './views'); // Tell Express where to find your EJS templates
+app.set('views', './views');
 
 // Database connection
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root', // Replace with your MySQL username
-  password: '', // Replace with your MySQL password
+  password: 'IwWeb@123', // Replace with your MySQL password
   database: 'categories_db', // Replace with your database name
 });
 
 db.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to database');
+  if (err) {
+    console.error('Database connection failed:', err.message);
+    process.exit(1); // Stop the server if DB fails to connect
+  }
+  console.log('Connected to MySQL database');
 });
 
-// Routes
+// 🟢 Root Route
 app.get('/', (req, res) => {
   res.send('Welcome to the Categories App!');
 });
 
-// Fetch categories
-app.get('/categories', (req, res) => {
-  const sql = 'SELECT * FROM Categories';
+// 🟢 Fetch all realms (Categories)
+app.get('/realms', (req, res) => {
+  const sql = 'SELECT * FROM Realm';
   db.query(sql, (err, results) => {
-    if (err) throw err;
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Database query error' });
+    }
     res.json(results);
   });
 });
 
-// Fetch subcategories for a category
-app.get('/subcategories/:category_id', (req, res) => {
-  const categoryId = req.params.category_id;
-  const sql = 'SELECT * FROM Subcategories WHERE category_id = ?';
-  db.query(sql, [categoryId], (err, results) => {
-    if (err) throw err;
+// 🟢 Fetch domains (Subcategories) for a realm
+app.get('/domains/:realm_id', (req, res) => {
+  const realmId = req.params.realm_id;
+  const sql = 'SELECT * FROM Domain WHERE realm_id = ?';
+  db.query(sql, [realmId], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Database query error' });
+    }
     res.json(results);
   });
 });
 
-// Fetch sub-subcategories for a subcategory
-app.get('/subsubcategories/:subcategory_id', (req, res) => {
-  const subcategoryId = req.params.subcategory_id;
-  const sql = 'SELECT * FROM SubSubcategories WHERE subcategory_id = ?';
-  db.query(sql, [subcategoryId], (err, results) => {
-    if (err) throw err;
+// 🟢 Fetch niches (Sub-subcategories) for a domain
+app.get('/niches/:domain_id', (req, res) => {
+  const domainId = req.params.domain_id;
+  const sql = 'SELECT * FROM Niche WHERE domain_id = ?';
+  db.query(sql, [domainId], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Database query error' });
+    }
     res.json(results);
   });
 });
 
-// Render a category page
-app.get('/category/:slug', (req, res) => {
+// 🟢 Render a realm (Category) page
+// 🟢 Render a realm (Category) page
+app.get('/realm/:slug', (req, res) => {
   const slug = req.params.slug;
-  const sql = 'SELECT * FROM Categories WHERE slug = ?';
-  db.query(sql, [slug], (err, categoryResult) => {
-    if (err) throw err;
-    const category = categoryResult[0];
+  const sql = 'SELECT * FROM Realm WHERE slug = ?';
 
-    const subcategorySql = 'SELECT * FROM Subcategories WHERE category_id = ?';
-    db.query(subcategorySql, [category.id], (err, subcategoryResults) => {
-      if (err) throw err;
-      res.render('category', { category, subcategories: subcategoryResults });
+  db.query(sql, [slug], (err, realmResult) => {
+    if (err) return res.status(500).send('Database error');
+    if (realmResult.length === 0) return res.status(404).send('Realm not found');
+
+    const realm = realmResult[0];
+
+    // Query to get the domains for the realm
+    const domainSql = 'SELECT * FROM Domain WHERE realm_id = ?';
+    db.query(domainSql, [realm.realm_id], (err, domainResults) => {
+      if (err) return res.status(500).send('Database error');
+      
+      // Render the realm view with the domains
+      res.render('realm', { realm, domainList: domainResults });  // Pass domains here
     });
   });
 });
 
-// Render a subcategory page
-app.get('/subcategory/:slug', (req, res) => {
+// 🟢 Render a domain (Subcategory) page
+app.get('/domain/:slug', (req, res) => {
   const slug = req.params.slug;
-  const sql = 'SELECT * FROM Subcategories WHERE slug = ?';
-  db.query(sql, [slug], (err, subcategoryResult) => {
-    if (err) throw err;
-    const subcategory = subcategoryResult[0];
+  const sql = 'SELECT * FROM Domain WHERE slug = ?';
 
-    const subSubcategorySql = 'SELECT * FROM SubSubcategories WHERE subcategory_id = ?';
-    db.query(subSubcategorySql, [subcategory.id], (err, subSubcategoryResults) => {
-      if (err) throw err;
-      res.render('subcategory', { subcategory, subSubcategories: subSubcategoryResults });
+  db.query(sql, [slug], (err, domainResult) => {
+    if (err) return res.status(500).send('Database error');
+    if (domainResult.length === 0) return res.status(404).send('Domain not found');
+
+    const domain = domainResult[0];
+
+    const nicheSql = 'SELECT * FROM Niche WHERE domain_id = ?';
+    db.query(nicheSql, [domain.domain_id], (err, nicheResults) => {
+      if (err) return res.status(500).send('Database error');
+      res.render('domain', { domain, nicheList: nicheResults });
     });
   });
 });
 
-// Render a sub-subcategory (niche) page
+// 🟢 Render a niche (Sub-subcategory) page
 app.get('/niche/:slug', (req, res) => {
   const slug = req.params.slug;
-  const sql = 'SELECT * FROM SubSubcategories WHERE slug = ?';
+  const sql = 'SELECT * FROM Niche WHERE slug = ?';
+
   db.query(sql, [slug], (err, nicheResult) => {
-    if (err) throw err;
-    const niche = nicheResult[0];
-    res.render('niche', { niche });
+    if (err) return res.status(500).send('Database error');
+    if (nicheResult.length === 0) return res.status(404).send('Niche not found');
+
+    res.render('niche', { niche: nicheResult[0] });
   });
 });
 
-// Start the server
+// 🟢 Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

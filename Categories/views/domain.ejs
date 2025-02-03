@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= subcategory.name %></title>
+  <title><%= domain.name %></title>
 </head>
 <body>
-  <h1><%= subcategory.name %></h1>
+  <h1><%= domain.name %></h1>
   <ul>
-    <% subSubcategories.forEach(subSubcategory => { %>
+    <% niche.forEach(niche => { %>
       <li>
-        <a href="/niche/<%= subSubcategory.slug %>"><%= subSubcategory.name %></a>
+        <a href="/niche/<%= niche.slug %>"><%= niche.name %></a>
       </li>
     <% }) %>
   </ul>
