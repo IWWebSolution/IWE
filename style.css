@@ -1718,8 +1718,6 @@ textarea:focus {
 	position: relative;
 	z-index: 1;
 	overflow: hidden;
-	background: #fed700;
-	color: #ffffff;
 	line-height: 50px;
 	margin-top: 10px;
 	height: 50px;
@@ -5223,6 +5221,151 @@ span.required {
 .category-tags > ul > li:hover a {
 	color: #ffffff;
 }
+
+.single-product-wrap {
+    position: relative;
+    padding: 20px;
+    border: 1px solid #ddd;
+    transition: 0.3s ease-in-out;
+    background: transparent !important; /* Ensure no background color */
+}
+
+.single-product-wrap:hover {
+    margin: 0 0 -75px;
+    padding: 0 0 75px;
+    z-index: 9;
+}
+
+.add-actions {
+    display: none; /* Initially hide the actions */
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+.prod-action {
+	display: none; /* Initially hide the actions */
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+.prod-link {
+	list-style: none;
+    margin: 0 !important;
+    width: 100%;
+    justify-content: space-between;
+	gap: 15px;
+	background: transparent !important;
+}
+
+.prod-link p {
+    flex: 1;
+    text-align: center;
+}
+
+.single-product-wrap:hover .add-actions .prod-action{
+    display: flex; /* Show actions on hover */
+    bottom: 0; /* Moves the actions into view */
+    opacity: 1; /* Makes the actions visible */
+}
+
+.single-product-wrap:hover .prod-action {
+    opacity: 1; /* Ensure product content is visible */
+}
+
+.single-product-wrap:hover .product_description {
+    opacity: 1; /* Ensure product description is visible */
+}
+
+/* Container for action buttons */
+.add-actions-link {
+    list-style: none;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+	gap: 15px;
+	background: transparent !important; /* Ensure no yellow in parent */
+}
+
+/* Button styles */
+.add-actions-link li {
+    flex: 1;
+    text-align: center;
+}
+
+.enquire-now, 
+.view-details {
+    all: unset;
+    display: inline-block !important;
+    padding: 10px 20px !important; /* Smaller padding */
+    background: linear-gradient(135deg, #6a11cb, #2575fc) !important; /* Purple-Blue Gradient */
+    color: white !important;
+    text-align: center;
+    text-decoration: none !important;
+    border-radius: 25px !important; /* Softer rounded corners */
+    font-size: 13px !important;
+    font-weight: bold !important;
+    box-shadow: 0 3px 6px rgba(106, 17, 203, 0.3) !important; /* Soft shadow */
+    transition: all 0.3s ease-in-out !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effect */
+.enquire-now:hover, 
+.view-details:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb) !important; /* Reverse Gradient */
+    color: #fff !important;
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0 5px 10px rgba(106, 17, 203, 0.5) !important;
+}
+
+/* Focus States */
+.enquire-now:focus, 
+.view-details:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.4) !important;
+}
+
+/* Button Animation - Subtle Shine */
+.enquire-now::before, 
+.view-details::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: skewX(-30deg);
+    transition: left 0.5s;
+}
+
+.enquire-now:hover::before, 
+.view-details:hover::before {
+    left: 100%;
+}
+
+/* Adjustments for list view */
+.product-layout-list .enquire-now,
+.product-layout-list .view-details {
+    background: linear-gradient(135deg, #6a11cb, #2575fc) !important;
+    color: white !important;
+}
+
+/* Ensure button works properly when using Bootstrap */
+.enquire-now.btn, 
+.view-details.btn {
+    all: unset;
+}
+
+.enquire-now, .view-details { 
+    z-index: 1 !important; 
+}
+
 /*----- paginatoin-area  css -----*/
 .paginatoin-area {
   background: #ffffff none repeat scroll 0 0;
