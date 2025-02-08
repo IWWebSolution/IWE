@@ -50,7 +50,7 @@
                             <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab">
                                 <i class="fa fa-user"></i> Account Details
                             </a>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="index.html" id="logoutBtn">
                                 <i class="fa fa-sign-out"></i> Logout
                             </a>
                         </div>
@@ -58,7 +58,7 @@
                     <div class="col-md-9">
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
-                                <h4>Hello ${user}</h4>
+                                <h4>Hello, <span id="name"></span></h4>
                                 <p>
                                     
                                     <br>
@@ -295,19 +295,19 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Name</label>
-                                        <input class="form-control" type="text" placeholder="Name">
+                                        <input class="form-control" type="text" id="name" name="name" placeholder="Name">
                                     </div>
                                     <div class="col-md-6">
                                         <label>Mobile Number</label>
-                                        <input class="form-control" type="text" placeholder="Mobile">
+                                        <input class="form-control" type="text" id="phone_no" name="phone_no"  placeholder="Mobile">
                                     </div><br>
                                     <div class="col-md-6">
                                         <label>Company Name</label>
-                                        <input class="form-control" type="text" placeholder="Company">
+                                        <input class="form-control" type="text" id="company_name" name="company_name"  placeholder="Company">
                                     </div>
                                     <div class="col-md-6">
                                         <label>Business Type</label>
-                                        <select id="Type" name="Type">
+                                        <select id="business_type" name="business_type">
                                             <option value="work">--Select--</option>
                                             <option value="personal">All</option>
                                             <option value="other">Exporter</option>
@@ -322,35 +322,32 @@
                                     </div>
                                     <div class="col-md-12">
                                         <label>Company Website</label>
-                                        <input class="form-control" type="text" placeholder="Company Website">
+                                        <input class="form-control" type="text" id="company_website" name="company_website"  placeholder="Company Website"> 
                                     </div><br>
                                     <div class="col-md-6">
                                         <label>Country</label>
-                                        <input class="form-control" type="text" placeholder="Company">
+                                        <input class="form-control" type="text" id="country_name" name="country_name" placeholder="Company">
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Company State</label>
-                                        <input class="form-control" type="text" placeholder="Company">
+                                        <label> State</label>
+                                        <input class="form-control" type="text" id="state" name="state"  placeholder="Company">
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Company City</label>
-                                        <input class="form-control" type="text" placeholder="Company">
+                                        <label> City</label>
+                                        <input class="form-control" type="text" id="city" name="city"  placeholder="City">
                                     </div>
-                                    <div class="col-md-6">
-                                        <label>Zip Code</label>
-                                        <input class="form-control" type="text" placeholder="Company">
-                                    </div><br>
+                                    <br>
                                     <div class="col-md-12">
-                                        <label>Company Address</label>
-                                        <input class="form-control" type="text" placeholder="Company">
+                                        <label>Address</label>
+                                        <input class="form-control" type="text" id="address" name="address"  placeholder="Company">
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <label>Company Services</label>
-                                        <input class="form-control" type="text" placeholder="Company">
+                                        <input class="form-control" type="text" id="services" name="services"  placeholder="Company Services">
                                     </div><br>
 
                                     <div class="col-md-12">
-                                        <button class="btn">Update Account</button>
+                                        <button type="submit" class="btn">Update Account</button>
                                         <br><br>
                                     </div>
                                 </div>
@@ -390,6 +387,38 @@
         
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+
+        <script>
+            // Retrieve user details from localStorage
+            const user = JSON.parse(localStorage.getItem("user"));
+            console.log(user)
+    
+            if (user) {
+                document.getElementById("name").textContent = user.name;
+                document.getElementById("email").textContent = user.email;
+                document.getElementById("phone_no").textContent = user.phone_no;
+                document.getElementById("company_name").textContent = user.company_name;
+                document.getElementById("business_type").textContent = user.business_type;
+                document.getElementById("company_website").textContent = user.company_website;
+                document.getElementById("state").textContent = user.state;
+                document.getElementById("city").textContent = user.city;
+                document.getElementById("address").textContent = user.address;
+                document.getElementById("services").textContent = user.company_services;
+            } else {
+                // Redirect to login if no user is found
+                window.location.href = "http://127.0.0.1:5501/login.html";
+            }
+    
+            // Logout functionality
+            document.getElementById("logoutBtn").addEventListener("click", function() {
+                localStorage.removeItem("access_token");
+                localStorage.removeItem("user");
+                window.location.href = "http://127.0.0.1:5501/login.html";
+            });
+        </script>
+    
+    
+
         <script src="js/account.js"></script>
         
         <script>
@@ -428,5 +457,92 @@
                     .catch(error => console.error('Error loading footer:', error));
             });
         </script>
+
+        <script>
+
+
+            // dashboard.js
+
+// Function to get user profile data
+            const getUserProfile = async () => {
+                const accessToken = localStorage.getItem('access_token');
+
+                if (!accessToken) {
+                    window.location.href = '/login';  // Redirect to login if no token is found
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/profile/', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                        }
+                    });
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Pre-fill the form with the fetched data
+                        document.getElementById('name').value = data.name;
+                        document.getElementById('email').value = data.email;
+                        document.getElementById('phone').value = data.phone;
+                        // Fill other form fields as needed
+                    } else {
+                        console.log('Failed to fetch profile:', data.msg);
+                    }
+                } catch (error) {
+                    console.error("Error fetching user profile:", error);
+                }
+            };
+
+            // Call this function when the dashboard is loaded
+            window.onload = getUserProfile;
+
+
+        </script>
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const logoutBtn = document.getElementById("logoutBtn");
+
+                if (logoutBtn) {
+                    logoutBtn.addEventListener("click", function() {
+                        const refreshToken = localStorage.getItem("refresh_token");
+
+                        if (!refreshToken) {
+                            console.error("No refresh token found, redirecting...");
+                            localStorage.clear();
+                            window.location.href = "http://127.0.0.1:5501/login.html"; // Redirect to login page
+                            return;
+                        }
+
+                        fetch("http://127.0.0.1:8000/logout/", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${localStorage.getItem("access_token")}`
+                            },
+                            body: JSON.stringify({ refresh_token: refreshToken })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data.msg);
+                            localStorage.clear(); // Clear all stored tokens
+                            window.location.href = "http://127.0.0.1:5501/login.html"; // Redirect to login page
+                        })
+                        .catch(error => {
+                            console.error("Logout failed:", error);
+                            localStorage.clear(); // Clear storage even if API fails
+                            window.location.href = "http://127.0.0.1:5501/login.html"; // Redirect
+                        });
+                    });
+                }
+            });
+
+
+        </script>
+
+
     </body>
 </html>

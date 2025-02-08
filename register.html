@@ -326,66 +326,75 @@
     fetchStates();
 
     </script>
-     <script>
-        document.getElementById("signupForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("signupForm");
+            if (form) {
+                form.addEventListener("submit", function (event) {
+                    event.preventDefault();
 
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm_password").value;
-            const phone_no = document.getElementById("phone_no").value;
-            const company_name = document.getElementById("company_name").value;
-            const business_type = document.getElementById("business_type").value;
-            const company_website = document.getElementById("company_website").value;
-            const state = document.getElementById("state").value;
-            const city = document.getElementById("city").value;
-            const address = document.getElementById("address").value;
-            const company_services = document.getElementById("company_services").value;
+                    const name = document.getElementById("name").value;
+                    const email = document.getElementById("email").value;
+                    const password = document.getElementById("password").value;
+                    const confirmPassword = document.getElementById("confirm_password").value;
+                    const phone_no = document.getElementById("phone_no").value;
+                    const company_name = document.getElementById("company_name").value;
+                    const business_type = document.getElementById("business_type").value;
+                    const company_website = document.getElementById("company_website").value;
+                    const state = document.getElementById("state").value;
+                    const city = document.getElementById("city").value;
+                    const address = document.getElementById("address").value;
+                    const company_services = document.getElementById("company_services").value;
 
+                    // Basic validation for password match
+                    if (password !== confirmPassword) {
+                        const passwordError = document.getElementById("passwordError");
+                        if (passwordError) {
+                            passwordError.textContent = "Passwords do not match.";
+                        }
+                        return;
+                    }
 
+                    const data = {
+                        name,
+                        email,
+                        password,
+                        phone_no,
+                        company_name,
+                        business_type,
+                        company_website,
+                        state,
+                        city,
+                        address,
+                        company_services
+                    };
 
-            // Basic validation for password match
-            if (password !== confirmPassword) {
-                document.getElementById("passwordError").textContent = "Passwords do not match.";
-                return;
+                    // Send data to Django backend API
+                    fetch("http://127.0.0.1:8000/signup/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(responseData => {
+                        console.log("Success:", responseData);
+                        if (responseData.msg === "Your account has been created") {
+                            window.location.href = "http://127.0.0.1:5501/login.html";
+                        } else {
+                            console.error("Signup failed:", responseData);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+                });
+            } else {
+                console.error("Form with ID 'signupForm' not found!");
             }
-
-            const data = {
-                name: name,
-                email: email,
-                password: password,
-                phone_no: phone_no,
-                company_name: company_name,
-                business_type: business_type,
-                company_website: company_website,
-                state: state,
-                city: city,
-                address: address,
-                company_services: company_services
-        
-            };
-
-            // Send data to Django backend API (ensure correct API endpoint)
-            fetch('http://127.0.0.1:8000/signup/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',  // Set the correct content type
-                },
-                body: JSON.stringify(data)  // Use 'data' to send the form data
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                if (data.msg === 'Your account has been created') {
-                    window.location.href = 'http://127.0.0.1:5501/login.html';
-                }
-                // Optionally, redirect or show success message
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
         });
+
     </script>
 
     </body>
