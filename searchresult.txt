@@ -87,16 +87,11 @@
                                                             <p><strong>Company Name:</strong> ABC Exports</p>
                                                             <p><strong>Order Quantity:</strong> 1000 Units</p>
                                                             <p><strong>Details Available:</strong> Yes</p>
-                                                            <div class="prod-action">
-                                                                <p class="product_description">Short description of the product...</p>
-                                                                <p><strong>Contact Person:</strong> John Doe</p>
-                                                                <p><strong>Company Name:</strong> ABC Exports</p>
-                                                                <p><strong>Order Quantity:</strong> 1000 Units</p>
-                                                                <p><strong>Details Available:</strong> Yes</p>
-                                                            </div>
-                                                            <div class="add-actions add-actions-link">
-                                                                <button class="enquire-now">Enquire Now</button>
-                                                                <button"single-product.html" class="view-details">View</button>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    <li><a href="#" class="enquire-now">Enquire Now</a></li>
+                                                                    <li><a href="single-product.html" class="view-details">View</a></li>
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                         <!-- single-product-wrap end -->
@@ -120,9 +115,11 @@
                                                             <p><strong>Company Name:</strong> ABC Exports</p>
                                                             <p><strong>Order Quantity:</strong> 1000 Units</p>
                                                             <p><strong>Details Available:</strong> Yes</p>
-                                                            <div class="add-actions add-actions-link">
-                                                                <button class="enquire-now">Enquire Now</button>
-                                                                <button"single-product.html" class="view-details">View</button>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    <li><a href="#" class="enquire-now">Enquire Now</a></li>
+                                                                    <li><a href="single-product.html" class="view-details">View</a></li>
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                         <!-- single-product-wrap end -->
@@ -154,10 +151,11 @@
                                                             <p><strong>Company Name:</strong> ABC Exports</p>
                                                             <p><strong>Order Quantity:</strong> 1000 Units</p>
                                                             
-                                                            <div class="shop-add-action mb-xs-30 add-actions-link">
-                                                                
-                                                                <button class="enquire-now">Enquire Now</button>
-                                                                <button"single-product.html" class="view-details">View</button>
+                                                            <div class="shop-add-action mb-xs-30">
+                                                                <ul class="add-actions-link">
+                                                                    <li><a href="#" class="enquire-now">Enquire Now</a></li>
+                                                                    <li><a href="single-product.html" class="view-details">View</a></li>
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                     </div>
