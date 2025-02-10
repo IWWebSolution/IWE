@@ -523,32 +523,67 @@
 /*----------------------------------------*/
     new WOW().init();
 
-/*---------------------scrolling-------*/
-$(document).ready(function() {
-    // Function to fetch requirements from the database
+/*----------------------------------------*/
+/* 27. Leads Vertical Slider
+/*----------------------------------------*/
+$(document).ready(function () {
     function fetchRequirements() {
         $.ajax({
-            url: 'path/to/your/api/requirements', // Replace with your API endpoint
+            url: 'path/to/your/api/requirements', // Replace with your actual API endpoint
             method: 'GET',
-            success: function(data) {
-                // Assuming data is an array of requirement objects
-                data.forEach(function(requirement) {
-                    $('.requirements-slider').append(`
+            success: function (data) {
+                const slider = $('.requirements-slider');
+                slider.empty(); // Clear existing content to avoid duplication
+
+                let uniqueRequirements = [];
+                let seenNames = new Set(); // Track already added names
+
+                data.forEach(function (requirement) {
+                    if (!seenNames.has(requirement.name)) {
+                        seenNames.add(requirement.name);
+                        uniqueRequirements.push(requirement);
+                    }
+                });
+
+                uniqueRequirements.forEach(function (requirement) {
+                    slider.append(`
                         <div class="requirement-item">
-                            <h4>Requirement Name: ${requirement.name}</h4>
+                            <h4>${requirement.name}</h4>
                             <p>Country: ${requirement.country}</p>
                             <p>Date Posted: ${requirement.datePosted}</p>
                         </div>
                     `);
                 });
+
+                // Start scrolling after data is loaded
+                startScrolling();
             },
-            error: function(error) {
+            error: function (error) {
                 console.error('Error fetching requirements:', error);
             }
         });
     }
 
-    // Call the function to fetch requirements
+    function startScrolling() {
+        let slider = $('.requirements-slider');
+        let itemHeight = $('.requirement-item').outerHeight();
+
+        function scrollUp() {
+            slider.animate(
+                { marginTop: `-${itemHeight}px` },
+                1000,
+                'linear',
+                function () {
+                    slider.append(slider.children().first()); // Move first item to end
+                    slider.css('margin-top', '0'); // Reset position
+                }
+            );
+        }
+
+        setInterval(scrollUp, 3000); // Scroll every 3 seconds
+    }
+
+    // Fetch data and start scrolling
     fetchRequirements();
 });
 
