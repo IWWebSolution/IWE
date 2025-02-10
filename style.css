@@ -1408,9 +1408,12 @@ textarea:focus {
 /* 1.16 Leads Vertical Slider
 /*----------------------------------------*/
 .requirements-slider-area {
-    height: 350px; /* Increased height to accommodate more content */
+    height: 350px;
     overflow: hidden;
     position: relative;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background: #f9f9f9;
 }
 
 .requirements-slider {

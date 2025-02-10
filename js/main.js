@@ -558,17 +558,16 @@ $(document).ready(function () {
                 const slider = $('.requirements-slider');
                 slider.empty(); // Clear existing content to avoid duplication
 
-                let uniqueRequirements = [];
                 let seenNames = new Set();
-
-                data.forEach(function (requirement) {
-                    if (!seenNames.has(requirement.name)) {
-                        seenNames.add(requirement.name);
-                        uniqueRequirements.push(requirement);
+                let uniqueRequirements = data.filter(req => {
+                    if (!seenNames.has(req.name)) {
+                        seenNames.add(req.name);
+                        return true;
                     }
+                    return false;
                 });
 
-                uniqueRequirements.forEach(function (requirement) {
+                uniqueRequirements.forEach(requirement => {
                     slider.append(`
                         <div class="requirement-item">
                             <h4>${requirement.name}</h4>
@@ -581,7 +580,6 @@ $(document).ready(function () {
                     `);
                 });
 
-                // Start scrolling after data is loaded
                 startScrolling();
             },
             error: function (error) {
@@ -606,7 +604,7 @@ $(document).ready(function () {
             );
         }
 
-        setInterval(scrollUp, 3000);
+        setInterval(scrollUp, 3000); // Scroll every 3 seconds
     }
 
     fetchRequirements();
