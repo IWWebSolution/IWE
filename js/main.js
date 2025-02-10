@@ -527,6 +527,29 @@
 /* 27. Leads Vertical Slider
 /*----------------------------------------*/
 $(document).ready(function () {
+    function maskString(value, visibleCount = 3, maskChar = '*') {
+        if (!value) return 'N/A';
+        let maskedPart = maskChar.repeat(value.length - visibleCount);
+        return value.substring(0, visibleCount) + maskedPart;
+    }
+
+    function maskEmail(email) {
+        if (!email) return 'N/A';
+        let parts = email.split('@');
+        if (parts.length !== 2) return email;
+        
+        let maskedLocal = maskString(parts[0], 3, '*');
+        let domainParts = parts[1].split('.');
+        let maskedDomain = '*'.repeat(domainParts[0].length);
+        
+        return `${maskedLocal}@${maskedDomain}.${domainParts.slice(1).join('.')}`;
+    }
+
+    function maskPhone(phone) {
+        if (!phone) return 'N/A';
+        return phone.substring(0, 6) + '*'.repeat(phone.length - 9) + phone.slice(-3);
+    }
+
     function fetchRequirements() {
         $.ajax({
             url: 'path/to/your/api/requirements', // Replace with your actual API endpoint
@@ -536,7 +559,7 @@ $(document).ready(function () {
                 slider.empty(); // Clear existing content to avoid duplication
 
                 let uniqueRequirements = [];
-                let seenNames = new Set(); // Track already added names
+                let seenNames = new Set();
 
                 data.forEach(function (requirement) {
                     if (!seenNames.has(requirement.name)) {
@@ -549,8 +572,11 @@ $(document).ready(function () {
                     slider.append(`
                         <div class="requirement-item">
                             <h4>${requirement.name}</h4>
-                            <p>Country: ${requirement.country}</p>
-                            <p>Date Posted: ${requirement.datePosted}</p>
+                            <p><strong>Country:</strong> ${requirement.country}</p>
+                            <p><strong>Company Name:</strong> ${maskString(requirement.companyName)}</p>
+                            <p><strong>Company Email:</strong> ${maskEmail(requirement.companyEmail)}</p>
+                            <p><strong>Phone No.:</strong> ${maskPhone(requirement.phoneNo)}</p>
+                            <p><strong>Date Posted:</strong> ${requirement.datePosted}</p>
                         </div>
                     `);
                 });
@@ -574,16 +600,15 @@ $(document).ready(function () {
                 1000,
                 'linear',
                 function () {
-                    slider.append(slider.children().first()); // Move first item to end
-                    slider.css('margin-top', '0'); // Reset position
+                    slider.append(slider.children().first());
+                    slider.css('margin-top', '0');
                 }
             );
         }
 
-        setInterval(scrollUp, 3000); // Scroll every 3 seconds
+        setInterval(scrollUp, 3000);
     }
 
-    // Fetch data and start scrolling
     fetchRequirements();
 });
 
