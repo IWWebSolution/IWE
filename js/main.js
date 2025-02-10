@@ -14,7 +14,7 @@
 		11. Category Menu
 		12. Li's Product Activision
 		13. FAQ Accordion
-		14. Toggle Function Active
+		14. Toggle Function Active 
 		15. Li's Blog Gallery Slider
 		16. Counter Js
 		17. Price slider
@@ -558,30 +558,37 @@ $(document).ready(function () {
                 const slider = $('.requirements-slider');
                 slider.empty(); // Clear existing content to avoid duplication
 
-                let uniqueRequirements = [];
                 let seenNames = new Set();
-
-                data.forEach(function (requirement) {
-                    if (!seenNames.has(requirement.name)) {
-                        seenNames.add(requirement.name);
-                        uniqueRequirements.push(requirement);
+                let uniqueRequirements = data.filter(req => {
+                    if (!seenNames.has(req.name)) {
+                        seenNames.add(req.name);
+                        return true;
                     }
+                    return false;
                 });
 
-                uniqueRequirements.forEach(function (requirement) {
+                uniqueRequirements.forEach(requirement => {
                     slider.append(`
                         <div class="requirement-item">
-                            <h4>${requirement.name}</h4>
-                            <p><strong>Country:</strong> ${requirement.country}</p>
-                            <p><strong>Company Name:</strong> ${maskString(requirement.companyName)}</p>
-                            <p><strong>Company Email:</strong> ${maskEmail(requirement.companyEmail)}</p>
-                            <p><strong>Phone No.:</strong> ${maskPhone(requirement.phoneNo)}</p>
-                            <p><strong>Date Posted:</strong> ${requirement.datePosted}</p>
+                            <div class="requirement-header">
+                                <h4>${requirement.name}</h4>
+                            </div>
+                            <div class="requirement-info">
+                                <span><strong>Country:</strong> ${requirement.country}</span>
+                                <span><strong>Phone:</strong> ${maskPhone(requirement.phoneNo)}</span>
+                            </div>
+                            <div class="requirement-company">
+                                <span><strong>Company:</strong> ${maskString(requirement.companyName)}</span>
+                                <span><strong>Email:</strong> ${maskEmail(requirement.companyEmail)}</span>
+                            </div>
+                            <div class="requirement-phone">
+                                <strong>Phone:</strong> ${maskPhone(requirement.phoneNo)}
+								<span><strong>Date:</strong> ${requirement.datePosted}</span>
+                            </div>
                         </div>
                     `);
                 });
 
-                // Start scrolling after data is loaded
                 startScrolling();
             },
             error: function (error) {
@@ -596,17 +603,17 @@ $(document).ready(function () {
 
         function scrollUp() {
             slider.animate(
-                { marginTop: `-${itemHeight}px` },
-                1000,
+                { top: `-${itemHeight}px` },
+                1500,
                 'linear',
                 function () {
                     slider.append(slider.children().first());
-                    slider.css('margin-top', '0');
+                    slider.css('top', '0');
                 }
             );
         }
 
-        setInterval(scrollUp, 3000);
+        setInterval(scrollUp, 3000); // Scroll every 3 seconds
     }
 
     fetchRequirements();

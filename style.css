@@ -39,7 +39,7 @@
 			6.8 Li's Compare Page
 			6.9 Li's Contact Pages
 			6.10 Li's About Us Page
-			6.11 Li's Shop Page
+			6.11 Li's Shop Page 
 			6.12 Li's Single Product
 			6.13 Single Product Carousel Page
 			6.14 Single Product Sale Page
@@ -1408,40 +1408,88 @@ textarea:focus {
 /* 1.16 Leads Vertical Slider
 /*----------------------------------------*/
 .requirements-slider-area {
-    height: 350px; /* Increased height to accommodate more content */
+    height: 450px; /* Increased height */
     overflow: hidden;
     position: relative;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background: #f9f9f9;
+    padding: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .requirements-slider {
     position: absolute;
-    width: 100%;
+    width: 97.3%;
+	animation: scroll 15s linear infinite;
     display: flex;
     flex-direction: column;
+    transition: transform 1s ease-in-out;
 }
 
 .requirement-item {
     padding: 15px;
-    border-bottom: 1px solid #ccc;
+    margin: 10px 0;
     background: #fff;
-    text-align: center;
-    font-size: 16px;
-    transition: transform 1s ease-in-out;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    text-align: center;
 }
 
-.requirement-item h4 {
+.requirement-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Header - Requirement Name */
+.requirement-header {
+    font-size: 18px;
     color: #007bff;
     font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
 }
 
-.requirement-item p {
-    margin: 5px 0;
+/* Country & Date - Two Columns */
+.requirement-info {
+    display: flex;
+    justify-content: space-between;
     font-size: 14px;
     color: #333;
+    margin-bottom: 5px;
 }
 
+/* Company & Email - Two Columns */
+.requirement-company {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Phone Number - Centered Below */
+.requirement-phone {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+@keyframes scrollUp {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes scroll {
+	0% {top:0;}
+	100% {top: -100%}
+}
 
 /*----------------------------------------*/
 /*  02. Home Page One
