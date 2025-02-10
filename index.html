@@ -1500,47 +1500,86 @@
 
         <div class="modal fade" id="popupModal" data-bs-keyboard="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content shadow-lg rounded">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title fw-bold">India World Exports</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content shadow-lg border-0 stylish-modal">
+                    <div class="modal-header py-3 d-flex justify-content-center align-items-center" 
+                        style="background: linear-gradient(135deg, #007bff, #0056b3); border-top-left-radius: 15px; border-top-right-radius: 15px; position: relative;">
+                        <h5 class="modal-title fw-bold text-center" style="color: #ffdd57; letter-spacing: 1px; flex-grow: 1;">
+                            India World Exports
+                        </h5>
+                        <button type="button" class="btn-close btn-close-red" data-bs-dismiss="modal" aria-label="Close" style="position: absolute; right: 15px;">
+                            
+                        </button>
                     </div>
-                    <div class="modal-body">
-                        <p class="text-center text-muted">Enter your details to proceed</p>
-                        <form id="userForm">
-                            <div class="mb-3">
-                                <label for="mobile" class="form-label fw-bold">Mobile Number</label>
-                                <input type="tel" id="mobile" class="form-control" placeholder="Enter Mobile Number" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="company" class="form-label fw-bold">Company Name</label>
-                                <input type="text" id="company" class="form-control" placeholder="Enter Company Name" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Get OTP</button>
-                        </form>
+                    <div class="modal-body p-4">
+                        <!-- Initial Form -->
+                        <div id="initialForm">
+                            <p class="text-center text-muted fs-6">For Quick Enquiry, enter the details</p>
+                            <form id="userForm">
+                                <div class="mb-3">
+                                    <label for="mobile" class="form-label fw-bold">📱 Mobile Number</label>
+                                    <input type="tel" id="mobile" class="form-control custom-input" placeholder="Enter Mobile Number" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="company" class="form-label fw-bold">🏢 Company Name</label>
+                                    <input type="text" id="company" class="form-control custom-input" placeholder="Enter Company Name" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 custom-btn">Get OTP</button>
+                            </form>
+                        </div>
+        
+                        <!-- OTP Verification Form -->
+                        <div id="otpForm" style="display: none;">
+                            <p class="text-center text-muted fs-6">Enter the OTP sent to your mobile number</p>
+                            <form id="otpVerificationForm">
+                                <div class="mb-3">
+                                    <label for="otp" class="form-label fw-bold">🔑 OTP</label>
+                                    <input type="text" id="otp" class="form-control custom-input" placeholder="Enter OTP" required>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100 custom-btn">Verify OTP</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- JavaScript -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var myModal = new bootstrap.Modal(document.getElementById("popupModal"));
                 myModal.show(); // Automatically show modal on page load
-    
+        
                 // Close modal on button click
                 document.querySelector(".btn-close").addEventListener("click", function () {
                     myModal.hide();
                 });
-            });
-    
-            // Form submission and redirect to OTP page
-            document.getElementById("userForm").addEventListener("submit", function (event) {
-                event.preventDefault();
-                
-                const mobile = document.getElementById("mobile").value;
-                const company = document.getElementById("company").value;
-                
-                window.location.href = `otp_verification.html?mobile=${mobile}&company=${company}`;
+        
+                // Handle initial form submission
+                document.getElementById("userForm").addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    
+                    const mobile = document.getElementById("mobile").value;
+                    const company = document.getElementById("company").value;
+                    
+                    console.log(`OTP sent to ${mobile} for company ${company}`);
+                    
+                    document.getElementById("initialForm").style.display = "none";
+                    document.getElementById("otpForm").style.display = "block";
+                });
+        
+                // Handle OTP verification form submission
+                document.getElementById("otpVerificationForm").addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    
+                    const otp = document.getElementById("otp").value;
+                    
+                    if (otp === "1234") {
+                        alert("✅ OTP verified successfully!");
+                        myModal.hide();
+                    } else {
+                        alert("❌ Invalid OTP. Please try again.");
+                    }
+                });
             });
         </script>
         

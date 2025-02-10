@@ -1314,6 +1314,97 @@ textarea:focus {
 	animation: liSlideInUp 1s infinite;
 }
 /*----------------------------------------*/
+/* 1.15 PopUp OTP 
+/*----------------------------------------*/
+.modal-content {
+	border-radius: 15px;
+	animation: fadeIn 0.5s ease-in-out;
+}
+
+.form-control {
+	border-radius: 10px;
+	border: 1px solid #ddd;
+	transition: 0.3s;
+}
+
+.form-control:focus {
+	border-color: #007bff;
+	box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+.btn {
+	transition: all 0.3s ease-in-out;
+}
+
+.stylish-modal {
+	border-radius: 15px;
+	background: rgba(255, 255, 255, 0.9); /* Glassmorphism */
+	backdrop-filter: blur(10px); /* Smooth Blur Effect */
+	box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Soft Shadow */
+	animation: scaleUp 0.4s ease-in-out;
+}
+
+.custom-input {
+	border-radius: 50px;
+	padding: 12px 15px;
+	border: 1px solid #ddd;
+	transition: 0.3s;
+	background: rgba(255, 255, 255, 0.8);
+}
+
+.custom-input:focus {
+	border-color: #007bff;
+	box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+}
+
+.custom-btn {
+	border-radius: 50px;
+	padding: 12px;
+	font-weight: bold;
+	transition: 0.3s;
+	box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+	transform: scale(1.05);
+}
+
+.btn-success:hover {
+	background-color: #28a745;
+	transform: scale(1.05);
+}
+
+.btn-close-red {
+	filter: invert(28%) sepia(77%) saturate(744%) hue-rotate(342deg) brightness(90%) contrast(98%);
+}
+
+.btn-close-red:hover {
+	filter: invert(20%) sepia(100%) saturate(1000%) hue-rotate(350deg) brightness(85%) contrast(105%);
+}
+
+@keyframes scaleUp {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/*----------------------------------------*/
 /*  02. Home Page One
 /*----------------------------------------*/
 /*----------------------------------------*/
