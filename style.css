@@ -5969,7 +5969,7 @@ span.required {
  	padding: 0 30px;
  	text-transform: uppercase;
  	transition: all 0.3s ease-in-out;
-}
+} 
 .error-button a:hover{background:#242424;color:#fff;}
 .small-version {
   display: none;
