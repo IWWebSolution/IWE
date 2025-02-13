@@ -287,7 +287,7 @@
                     document.getElementById('head').innerHTML = data;
                 })
                 .catch(error => console.error('Error loading head:', error));
-    
+
             // Load header content
             fetch('header.html')
                 .then(res => {
@@ -296,9 +296,12 @@
                 })
                 .then(data => {
                     document.getElementById('header').innerHTML = data;
+
+                    // Attach event listeners after the header is loaded
+                    attachEventListeners();
                 })
                 .catch(error => console.error('Error loading header:', error));
-    
+
             // Load footer content
             fetch('footer.html')
                 .then(res => {
@@ -310,6 +313,22 @@
                 })
                 .catch(error => console.error('Error loading footer:', error));
         });
+
+        function attachEventListeners() {
+            document.querySelectorAll(".redirect").forEach(link => {
+                link.addEventListener("click", function(event){
+                    event.preventDefault();
+                    window.location.href = "maintenance.html";
+                });
+            });
+
+            document.querySelectorAll(".soon").forEach(link => {
+                link.addEventListener("click", function(event){
+                    event.preventDefault();
+                    window.location.href = "coming-soon.html";
+                });
+            });
+        }
     </script>
 </body>
 
