@@ -1492,6 +1492,67 @@
     <!-- JavaScript -->
 
     <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const userForm = document.getElementById("userForm");
+            const otpForm = document.getElementById("otpVerificationForm");
+
+            const initialForm = document.getElementById("initialForm");
+            const otpSection = document.getElementById("otpForm");
+
+            userForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+                
+                let phone = document.getElementById("mobile").value;
+                let company = document.getElementById("company").value;
+
+                fetch("http://127.0.0.1:8000/api/send-otp/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `phone_no=${phone}&company_name=${company}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert("OTP sent successfully!");
+
+                        // Hide initial form and show OTP form
+                        initialForm.style.display = "none";
+                        otpSection.style.display = "block";
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(error => console.error("Error sending OTP:", error));
+            });
+
+            otpForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+                
+                let phone = document.getElementById("mobile").value;
+                let otp = document.getElementById("otp").value;
+
+                fetch("http://127.0.0.1:8000/api/verify-otp/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `phone_no=${phone}&otp=${otp}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert("OTP verified successfully!");
+                        window.location.href = "/dashboard/";  // Redirect after successful verification
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(error => console.error("Error verifying OTP:", error));
+            });
+        });
+
+    </script>
+
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             fetch("http://127.0.0.1:8000/get_leads/")  // Update with your actual API URL
                 .then(response => response.json())
