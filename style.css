@@ -1429,6 +1429,10 @@ textarea:focus {
     transition: transform 1s ease-in-out;
 }
 
+.requirements-slider-area:hover .requirements-slider {
+    animation-play-state: paused; /* Pause animation on hover */
+}
+
 .requirements-slider-area::-webkit-scrollbar {
 	width: 8px;
 }
@@ -1486,6 +1490,20 @@ textarea:focus {
     font-size: 14px;
     font-weight: bold;
     color: #555;
+}
+
+.view-lead {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.view-lead:hover {
+    background-color: #0056b3;
 }
 
 @keyframes scrollUp {
