@@ -310,7 +310,7 @@ const categories = [
     name: 'Chemical & Dyes Products',
   },
   {
-    name: 'Plastic Products',
+    name: 'Plastic Products', 
   },
   {
     name: 'Furniture & Home Decoration',

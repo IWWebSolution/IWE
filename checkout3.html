@@ -1,378 +1,201 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
-    
-<!-- checkout31:27-->
-<div id="head"></div>
-    <body>
-        <div id="header"></div>
-            <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Checkout</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
-            <!--Checkout Area Strat-->
-            <div class="checkout-area pt-60 pb-30">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="coupon-accordion">
-                                <!--Accordion Start-->
-                                <h3>Already a Member? <span id="showlogin">Click here to login</span></h3>
-                                <div id="checkout-login" class="coupon-content">
-                                    <div class="coupon-info">
-                                        <p class="coupon-text">Enter your registered email</p>
-                                        <form action="#">
-                                            <p class="form-row-first">
-                                                <label>Username or Email <span class="required">*</span></label>
-                                                <input type="text">
-                                            </p>
-                                            <p class="form-row-last">
-                                                <label>Password  <span class="required">*</span></label>
-                                                <input type="text">
-                                            </p>
-                                            <p class="form-row">
-                                                <input value="Login" type="submit">
-                                                <label>
-                                                    <input type="checkbox">
-                                                     Remember me 
-                                                </label>
-                                            </p>
-                                            <p class="lost-password"><a href="#">Lost your password?</a></p>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!--Accordion End-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-12">
-                            <form action="#">
-                                <div class="checkbox-form">
-                                    <h3>Fill Your Contact Information</h3>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Name <span class="required">*</span></label>
-                                                <input placeholder="" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Email<span class="required">*</span></label>
-                                                <input placeholder="" type="email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Mobile Number  <span class="required">*</span></label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Company Name</label>
-                                                <input placeholder="" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Business Type</label>
-                                                <select id="Type" name="Type">
-                                                    <option value="work">--Select--</option>
-                                                    <option value="personal">All</option>
-                                                    <option value="other">Exporter</option>
-                                                    <option value="other">Supplier</option>
-                                                    <option value="other">Manufacturer</option>
-                                                    <option value="other">Retailer</option>
-                                                    <option value="other">Distributor</option>
-                                                    <option value="other">Importer</option>
-                                                    <option value="other">Trader</option>
-                                                    <option value="other">Whole-seller</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Address <span class="required">*</span></label>
-                                                <input placeholder="Street address" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="country-select clearfix">
-                                                <label>Country <span class="required">*</span></label>
-                                                <select class="nice-select wide">
-                                                  <option data-display="India">India</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label for="state">State <span class="required">*</span></label>
-                                                <select id="state" class="mb-0">
-                                                    <option value="">Select State</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label for="city">Town / City <span class="required">*</span></label>
-                                                <select id="city" class="mb-0">
-                                                    <option value="">Select City</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Postcode / Zip <span class="required">*</span></label>
-                                                <input placeholder="" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list create-acc">
-                                                <input id="cbox" type="checkbox">
-                                                <label>Create an account?</label>
-                                            </div>
-                                            <div id="cbox-info" class="checkout-form-list create-account">
-                                                <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                                <label>Account password  <span class="required">*</span></label>
-                                                <input placeholder="password" type="password">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-6 col-12">
-                            <div class="your-order">
-                                <h3>Your Order Details</h3>
-                                <div class="your-order-table table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th class="cart-product-name">Product</th>
-                                                <th class="cart-product-total">Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="cart_item">
-                                              <td class="cart-product-name"> Supreme Membership<strong class="product-quantity"> × 1</strong></td>
-                                              <td class="cart-product-total"><span class="amount">Rs. 75300.00</span></td>  
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr class="order-total">
-                                                <th>Order Total</th>
-                                                <td><strong><span class="amount">Rs. 75300.00</span></strong></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="payment-method">
-                                    <div class="payment-accordion">
-                                        <div id="accordion">
-                                          <div class="card">
-                                            <div class="card-header" id="#payment-1">
-                                              <h5 class="panel-title">
-                                                <a class="" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                  Direct Bank Transfer.
-                                                </a>
-                                              </h5>
-                                            </div>
-                                          </div>
-                                          <div class="card">
-                                            <div class="card-header" id="#payment-2">
-                                              <h5 class="panel-title">
-                                                <a class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                  Scan QR
-                                                </a>
-                                              </h5>
-                                            </div>
-                                          </div>
-                                          <div class="card">
-                                            <div class="card-header" id="#payment-3">
-                                              <h5 class="panel-title">
-                                                <a class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                  PayPal
-                                                </a>
-                                              </h5>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="order-button-payment">
-                                            <a href="thankyou0.html"><input value="Place order" type="submit"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Checkout Area End-->
-            <!-- Begin Footer Area -->
-            <div class="footer">
-                <!-- Begin Footer Static Top Area -->
-                <div class="footer-static-top">
-                    <div class="container">
-                        <!-- Begin Footer Shipping Area -->
-                        <div class="footer-shipping pt-60 pb-55 pb-xs-25">
-                            <div class="row">
-                                <!-- Begin Li's Shipping Inner Box Area -->
-                                <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
-                                    <div class="li-shipping-inner-box">
-                                        <div class="shipping-icon">
-                                            <img src="images/shipping-icon/1.png" alt="Shipping Icon">
-                                        </div>
-                                        <div class="shipping-text">
-                                            <h2>Free Delivery</h2>
-                                            <p>And free returns. See checkout for delivery dates.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Li's Shipping Inner Box Area End Here -->
-                                <!-- Begin Li's Shipping Inner Box Area -->
-                                <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
-                                    <div class="li-shipping-inner-box">
-                                        <div class="shipping-icon">
-                                            <img src="images/shipping-icon/2.png" alt="Shipping Icon">
-                                        </div>
-                                        <div class="shipping-text">
-                                            <h2>Safe Payment</h2>
-                                            <p>Pay with the world's most popular and secure payment methods.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Li's Shipping Inner Box Area End Here -->
-                                <!-- Begin Li's Shipping Inner Box Area -->
-                                <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
-                                    <div class="li-shipping-inner-box">
-                                        <div class="shipping-icon">
-                                            <img src="images/shipping-icon/3.png" alt="Shipping Icon">
-                                        </div>
-                                        <div class="shipping-text">
-                                            <h2>Shop with Confidence</h2>
-                                            <p>Our Buyer Protection covers your purchasefrom click to delivery.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Li's Shipping Inner Box Area End Here -->
-                                <!-- Begin Li's Shipping Inner Box Area -->
-                                <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
-                                    <div class="li-shipping-inner-box">
-                                        <div class="shipping-icon">
-                                            <img src="images/shipping-icon/4.png" alt="Shipping Icon">
-                                        </div>
-                                        <div class="shipping-text">
-                                            <h2>24/7 Help Center</h2>
-                                            <p>Have a question? Call a Specialist or chat online.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Li's Shipping Inner Box Area End Here -->
-                            </div>
-                        </div>
-                        <!-- Footer Shipping Area End Here -->
-                    </div>
-                </div>
-                <!-- Footer Static Top Area End Here -->
-                <div id="footer"></div>
-            </div>
-            <!-- Footer Area End Here -->
-        </div>
-        <!-- Body Wrapper End Here -->
-        <!-- jQuery-V1.12.4 -->
-        <script src="js/vendor/jquery-1.12.4.min.js"></script>
-        <!-- Popper js -->
-        <script src="js/vendor/popper.min.js"></script>
-        <!-- Bootstrap V4.1.3 Fremwork js -->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- Ajax Mail js -->
-        <script src="js/ajax-mail.js"></script>
-        <!-- Meanmenu js -->
-        <script src="js/jquery.meanmenu.min.js"></script>
-        <!-- Wow.min js -->
-        <script src="js/wow.min.js"></script>
-        <!-- Slick Carousel js -->
-        <script src="js/slick.min.js"></script>
-        <!-- Owl Carousel-2 js -->
-        <script src="js/owl.carousel.min.js"></script>
-        <!-- Magnific popup js -->
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <!-- Isotope js -->
-        <script src="js/isotope.pkgd.min.js"></script>
-        <!-- Imagesloaded js -->
-        <script src="js/imagesloaded.pkgd.min.js"></script>
-        <!-- Mixitup js -->
-        <script src="js/jquery.mixitup.min.js"></script>
-        <!-- Countdown -->
-        <script src="js/jquery.countdown.min.js"></script>
-        <!-- Counterup -->
-        <script src="js/jquery.counterup.min.js"></script>
-        <!-- Waypoints -->
-        <script src="js/waypoints.min.js"></script>
-        <!-- Barrating -->
-        <script src="js/jquery.barrating.min.js"></script>
-        <!-- Jquery-ui -->
-        <script src="js/jquery-ui.min.js"></script>
-        <!-- Venobox -->
-        <script src="js/venobox.min.js"></script>
-        <!-- Nice Select js -->
-        <script src="js/jquery.nice-select.min.js"></script>
-        <!-- ScrollUp js -->
-        <script src="js/scrollUp.min.js"></script>
-        <!-- Main/Activator js -->
-        <script src="js/main.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // Load head content
-                fetch('head.html')
-                    .then(res => {
-                        if (!res.ok) throw new Error('Head file not found');
-                        return res.text();
-                    })
-                    .then(data => {
-                        document.getElementById('head').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error loading head:', error));
-        
-                // Load header content
-                fetch('header.html')
-                    .then(res => {
-                        if (!res.ok) throw new Error('Header file not found');
-                        return res.text();
-                    })
-                    .then(data => {
-                        document.getElementById('header').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error loading header:', error));
-        
-                // Load footer content
-                fetch('footer.html')
-                    .then(res => {
-                        if (!res.ok) throw new Error('Footer file not found');
-                        return res.text();
-                    })
-                    .then(data => {
-                        document.getElementById('footer').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error loading footer:', error));
-            });
-        </script>
-    </body>
 
-<!-- checkout31:27-->
+<head>
+    <div id="head"></div>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .breadcrumb-area {
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .checkout-area {
+            padding: 40px 0;
+        }
+
+        .your-order {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            min-height: 450px;
+        }
+
+        .your-order img {
+            max-width: 100%;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .your-order-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .your-order-table th,
+        .your-order-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .payment-method {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #007bff;
+            box-shadow: 0 2px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .payment-option i {
+            font-size: 24px;
+            margin-right: 15px;
+            color: #007bff;
+        }
+
+        .btn-pay {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-pay:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active">Checkout</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="checkout-area pt-60 pb-30">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12">
+                    <div class="your-order">
+                        <h3>Membership Details</h3>
+                        <center>
+                            <img src="images/product/large-size/free.png" alt="Membership Plan" style="align-items: center;">
+                        </center>
+                        <div class="your-order-table table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr> 
+                                        <th>Product</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Supreme Membership <strong class="product-quantity">× 1</strong></td>
+                                        <td>Rs. 75800.00</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="order-total">
+                                        <th>Order Total</th>
+                                        <td><strong><span class="amount">Rs. 75800.00</span></strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="payment-method">
+                        <h3>Payment Options</h3>
+                        <div class="payment-option" onclick="selectPayment('bank')">
+                            <i class="fas fa-university"></i>
+                            <h5>Direct Bank Transfer</h5>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('qr')">
+                            <i class="fas fa-qrcode"></i>
+                            <h5>Scan QR</h5>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('paypal')">
+                            <i class="fab fa-paypal"></i>
+                            <h5>PayPal</h5>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('upi')">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h5>UPI</h5>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('card')">
+                            <i class="fas fa-credit-card"></i>
+                            <h5>Credit/Debit Card</h5>
+                        </div>
+                        <button class="btn-pay" onclick="processPayment()">Proceed to Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            ['head', 'header', 'footer'].forEach(section => {
+                fetch(`${section}.html`)
+                    .then(res => res.ok ? res.text() : '')
+                    .then(data => document.getElementById(section).innerHTML = data)
+                    .catch(console.error);
+            });
+        });
+
+        let selectedPaymentMethod = null;
+
+        function selectPayment(method) {
+            selectedPaymentMethod = method;
+            document.querySelectorAll('.payment-option').forEach(option => option.style.borderColor = '#e9ecef');
+            event.currentTarget.style.borderColor = '#007bff';
+        }
+
+        function processPayment() {
+            if (!selectedPaymentMethod) {
+                alert('Please select a payment method.');
+                return;
+            }
+            alert(`Proceeding with ${selectedPaymentMethod} payment...`);
+        }
+    </script>
+</body>
 </html>

@@ -42,15 +42,15 @@ window.addEventListener('load', function () {
 let backStack = [];
 
 function openPopup(title, subcategories) {
-  // If there are no subcategories, make the category clickable and navigate to a new page
+  // If there are no subcategories, redirect to realm.html
   if (!subcategories || subcategories.length === 0) {
-    window.location.href = `#${title}`; // Replace with the actual URL you want to navigate to
+    redirectToMaintenanceOrRealm(title);
     return;
   }
 
   // Make the heading clickable
   const popupHeader = document.getElementById('popup-header');
-  popupHeader.innerHTML = `<a href="#${title}" target="_blank">${title}</a>`; // Wrap the title in an <a> tag
+  popupHeader.innerHTML = `<a href="javascript:void(0);" onclick="redirectToMaintenanceOrDomain('${title}')">${title}</a>`; // Wrap the title in an <a> tag
 
   // Populate the subcategories
   const list = document.getElementById('popup-list');
@@ -58,17 +58,18 @@ function openPopup(title, subcategories) {
   subcategories.forEach((subcategory) => {
     const li = document.createElement('li');
     const link = document.createElement('a');
-    link.href = `#${subcategory.name || subcategory}`; // Set the link (you can modify this to point to the desired URL)
+    link.href = 'javascript:void(0);'; // Prevent default navigation
     link.textContent = subcategory.name || subcategory; // Handle nested or flat subcategories
     link.style.cursor = 'pointer';
-    link.target = '_blank'; // Open in a new tab
 
-    // Attach click event to open subcategories, if available
+    // Attach click event to open subcategories or redirect to domain.html
     link.onclick = (e) => {
       if (subcategory.subcategories) {
         e.preventDefault(); // Prevent the link from navigating
         backStack.push({ title, subcategories }); // Save current state
         openSubPopup(subcategory.name, subcategory.subcategories);
+      } else {
+        redirectToMaintenanceOrDomain(subcategory.name || subcategory);
       }
     };
 
@@ -89,7 +90,7 @@ function openPopup(title, subcategories) {
 function openSubPopup(title, subSubcategories) {
   // Make the heading clickable
   const popupHeader = document.getElementById('popup-header');
-  popupHeader.innerHTML = `<a href="#${title}" target="_blank">${title}</a>`; // Wrap the title in an <a> tag
+  popupHeader.innerHTML = `<a href="javascript:void(0);" onclick="redirectToMaintenanceOrNiche('${title}')">${title}</a>`; // Wrap the title in an <a> tag
 
   // Populate the sub-subcategories
   const list = document.getElementById('popup-list');
@@ -97,9 +98,15 @@ function openSubPopup(title, subSubcategories) {
   subSubcategories.forEach((subSubcategory) => {
     const li = document.createElement('li');
     const link = document.createElement('a');
-    link.href = `#${subSubcategory}`; // Set the link (you can modify this to point to the desired URL)
+    link.href = 'javascript:void(0);'; // Prevent default navigation
     link.textContent = subSubcategory;
-    link.target = '_blank'; // Open in a new tab
+    link.style.cursor = 'pointer';
+
+    // Attach click event to redirect to niche.html
+    link.onclick = () => {
+      redirectToMaintenanceOrNiche(subSubcategory);
+    };
+
     li.appendChild(link);
     list.appendChild(li);
   });
@@ -119,6 +126,57 @@ function closePopup() {
   document.getElementById('popup').style.display = 'none';
   document.getElementById('popup-overlay').style.display = 'none';
   backStack = []; // Clear the back stack
+}
+
+// Function to redirect to realm.html
+function redirectToMaintenanceOrRealm(category) {
+  fetch('/api/is_logged_in/') // Check if the user is logged in
+    .then(response => response.json())
+    .then(data => {
+      if (data.is_authenticated) {
+        window.location.href = `realm.html?category=${encodeURIComponent(category)}`;
+      } else {
+        window.location.href = 'maintenance.html'; // Redirect to maintenance page if not logged in
+      }
+    })
+    .catch(error => {
+      console.error('Error checking authentication:', error);
+      window.location.href = 'maintenance.html'; // Redirect to maintenance page on error
+    });
+}
+
+// Function to redirect to domain.html
+function redirectToMaintenanceOrDomain(subcategory) {
+  fetch('/api/is_logged_in/') // Check if the user is logged in
+    .then(response => response.json())
+    .then(data => {
+      if (data.is_authenticated) {
+        window.location.href = `domain.html?subcategory=${encodeURIComponent(subcategory)}`;
+      } else {
+        window.location.href = 'maintenance.html'; // Redirect to maintenance page if not logged in
+      }
+    })
+    .catch(error => {
+      console.error('Error checking authentication:', error);
+      window.location.href = 'maintenance.html'; // Redirect to maintenance page on error
+    });
+}
+
+// Function to redirect to niche.html
+function redirectToMaintenanceOrNiche(subSubcategory) {
+  fetch('/api/is_logged_in/') // Check if the user is logged in
+    .then(response => response.json())
+    .then(data => {
+      if (data.is_authenticated) {
+        window.location.href = `niche.html?subSubcategory=${encodeURIComponent(subSubcategory)}`;
+      } else {
+        window.location.href = 'maintenance.html'; // Redirect to maintenance page if not logged in
+      }
+    })
+    .catch(error => {
+      console.error('Error checking authentication:', error);
+      window.location.href = 'maintenance.html'; // Redirect to maintenance page on error
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
