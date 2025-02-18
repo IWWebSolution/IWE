@@ -5453,9 +5453,8 @@ span.required {
 }
 
 .prod-action {
-	display: none !important; /* Initially hide the actions */
-    width: 100%;
-    padding: 10px;
+	display: flexbox;
+	position: relative;
 }
 
 .prod-link {
@@ -5477,27 +5476,11 @@ span.required {
     opacity: 1 !important;
 }
 
-.single-product-wrap:hover .add-actions,
-.single-product-wrap:hover .prod-action {
+.single-product-wrap:hover .add-actions {
     display: flex !important; /* Override hidden state */
     opacity: 1;
 }
 
-.single-product-wrap:hover .product_description {
-    opacity: 1; /* Ensure product description is visible */
-}
-
-.single-product-wrap:hover > *:not(.add-actions),
-.single-product-wrap:hover .product_description,
-.single-product-wrap:hover p:not(.add-actions p) {
-    opacity: 1 !important;
-    display: block !important;
-}
-
-.product-content + p { /* Targets description paragraph */
-    display: block !important;
-    opacity: 1 !important;
-}
 
 /* Container for action buttons */
 .add-actions-link {
