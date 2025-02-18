@@ -5350,6 +5350,9 @@ span.required {
 .shop-item-filter-list li a.active {
   color: #242424;
 }
+
+/*           Search Result           */
+
 .toolbar-amount {
   font-size: 14px;
   margin-left: 30px;
@@ -5438,23 +5441,21 @@ span.required {
 }
 
 .single-product-wrap:hover {
-    margin: 0 0 -75px;
-    padding: 0 0 75px;
-    z-index: 9;
+    margin: 0 !important;
+    padding: 20px !important; /* Keep original padding */
+    transform: translateY(-5px);
 }
 
 .add-actions {
-    display: none; /* Initially hide the actions */
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
+    position: relative;
+    bottom: 0;
+    margin-top: 15px;
+    gap: 10px;
 }
 
 .prod-action {
-	display: none; /* Initially hide the actions */
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
+	display: flexbox;
+	position: relative;
 }
 
 .prod-link {
@@ -5471,19 +5472,16 @@ span.required {
     text-align: center;
 }
 
-.single-product-wrap:hover .add-actions .prod-action{
-    display: flex; /* Show actions on hover */
-    bottom: 0; /* Moves the actions into view */
-    opacity: 1; /* Makes the actions visible */
+.single-product-wrap:hover .add-actions {
+    display: flex !important;
+    opacity: 1 !important;
 }
 
-.single-product-wrap:hover .prod-action {
-    opacity: 1; /* Ensure product content is visible */
+.single-product-wrap:hover .add-actions {
+    display: flex !important; /* Override hidden state */
+    opacity: 1;
 }
 
-.single-product-wrap:hover .product_description {
-    opacity: 1; /* Ensure product description is visible */
-}
 
 /* Container for action buttons */
 .add-actions-link {
@@ -5495,6 +5493,11 @@ span.required {
     justify-content: space-between;
 	gap: 15px;
 	background: transparent !important; /* Ensure no yellow in parent */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Button styles */
