@@ -1409,6 +1409,7 @@ textarea:focus {
 /*----------------------------------------*/
 .requirements-slider-area {
     height: auto; /* Increased height */
+	width: 80%;
 	max-height: 450px;
     overflow-y: auto;
     position: relative;
