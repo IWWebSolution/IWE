@@ -4417,6 +4417,7 @@ thead {
 }
 .register-button:hover {
 	background: #fed700;
+	cursor: pointer;
 }
 /*----------------------------------------*/
 /* 	6.6 Li's Shopping Cart
