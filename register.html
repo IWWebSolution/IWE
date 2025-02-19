@@ -100,7 +100,7 @@
                                     <input class="mb-0" type="text" placeholder="Services" id="company_services" name="company_services">
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="register-button mt-0">Register</button>
+                                    <button type="submit" id="registerButton" class="register-button mt-0">Register</button>
                                 </div>
                             </div>
                         </div>
@@ -274,6 +274,11 @@
                     window.location.href = "coming-soon.html";
                 });
             });
+        });
+
+        document.getElementById("registerButton").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent form submission (remove if form submission is needed)
+            window.location.href = "membership.html"; // Redirect to membership page
         });
 
         const statesApi = "https://api.countrystatecity.in/v1/countries/IN/states";
