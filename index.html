@@ -1587,11 +1587,11 @@
 
                     document.querySelectorAll(".view-lead").forEach(button => {
                         button.addEventListener("click", function () {
-                            fetch("/api/is_logged_in/")  // API to check if user is logged in
+                            fetch("http://127.0.0.1:8000/is_logged_in")  // API to check if user is logged in
                                 .then(response => response.json())
                                 .then(data => {
                                     if (!data.is_authenticated) {
-                                        window.location.href = "/login/";  // Redirect to login
+                                        window.location.href = "http://127.0.0.1:5501/login.html";  // Redirect to login
                                     } else {
                                         window.location.href = `/lead-details/${this.dataset.id}/`;  // Redirect to lead details
                                     }
