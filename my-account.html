@@ -569,7 +569,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+       document.addEventListener("DOMContentLoaded", function () {
             fetch("http://127.0.0.1:8000/get_leads/")  // Update with your actual API URL
                 .then(response => response.json())
                 .then(data => {
@@ -599,23 +599,186 @@
                         slider.appendChild(item);
                     });
 
-                    document.querySelectorAll(".view-lead").forEach(button => {
-                        button.addEventListener("click", function () {
-                            fetch("/api/is_logged_in/")  // API to check if user is logged in
-                            .then(response => response.json())
-                            .then(data => {
-                                if (!data.is_authenticated) {
-                                    window.location.href = "/login/";  // Redirect to login
-                                } else {
-                                    window.location.href = `/lead-details/${this.dataset.id}/`;  // Redirect to lead details
-                                }
-                            });
-                        });
+                    // ✅ Fix: Use event delegation to handle click event dynamically
+                    document.body.addEventListener("click", function (event) {
+                        if (event.target.classList.contains("view-lead")) {
+                            const leadId = event.target.dataset.id;
+                            window.location.href = `http://127.0.0.1:8000/lead-details/${leadId}/`;  // Directly redirect to lead details
+                        }
                     });
                 })
             .catch(error => console.error("Error fetching leads:", error));
         });
+
+    </script> -->
+    <!-- <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("http://127.0.0.1:8000/get_leads/")  // Fetch masked leads
+                .then(response => response.json())
+                .then(data => {
+                    const slider = document.querySelector(".requirements-slider");
+                    slider.innerHTML = ""; // Clear existing items
+
+                    data.forEach(lead => {
+                        const item = document.createElement("div");
+                        item.classList.add("requirement-item");
+                        item.innerHTML = `
+                            <div class="requirement-header">
+                                <h4>${lead.products}</h4>
+                            </div>
+                            <div class="requirement-info">
+                                <span><strong>Country:</strong> ${lead.country}</span>
+                                <span><strong>Phone:</strong> <span class="lead-phone">XXXXXXXXXX</span></span>  
+                            </div>
+                            <div class="requirement-company">
+                                <span><strong>Company:</strong> <span class="lead-company">XXXXXXXX</span></span>  
+                                <span><strong>Email:</strong> <span class="lead-email">XXXXXXXXXX</span></span>  
+                            </div>
+                            <div class="requirement-company">
+                                <span><strong>Quantity:</strong> ${lead.quantity}</span>
+                                <button class="view-lead" data-id="${lead.id}">View Lead</button>
+                            </div>
+                        `;
+                        slider.appendChild(item);
+                    });
+
+                    // ✅ Handle "View Lead" clicks dynamically
+                    document.body.addEventListener("click", function (event) {
+                        if (event.target.classList.contains("view-lead")) {
+                            const button = event.target;
+                            const leadId = button.dataset.id;
+                            const parentItem = button.closest(".requirement-item");
+
+                            fetch(`http://127.0.0.1:8000/lead-details/${leadId}/`)
+                                .then(response => response.json())
+                                .then(leadData => {
+                                    if (leadData.error) {
+                                        alert(leadData.error);  // Show limit reached message
+                                    } else {
+                                        // ✅ Update UI with real lead details
+                                        parentItem.querySelector(".lead-phone").textContent = leadData.phone_no;
+                                        parentItem.querySelector(".lead-company").textContent = leadData.company_name;
+                                        parentItem.querySelector(".lead-email").textContent = leadData.company_email;
+                                        button.remove();  // Remove "View Lead" button after showing details
+                                    }
+                                })
+                                .catch(error => console.error("Error fetching lead details:", error));
+                        }
+                    });
+                })
+            .catch(error => console.error("Error fetching leads:", error));
+        });
+
+        fetch("http://127.0.0.1:8000/api/login/", {
+            method: "POST",
+            body: JSON.stringify({ username, password }),
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.token) {
+                localStorage.setItem("authToken", data.token);  // Store token
+                window.location.href = "/dashboard/";
+            } else {
+                alert("Invalid credentials");
+            }
+        });
     </script>
+
+    <!-- <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const authToken = localStorage.getItem("authToken");
+            const slider = document.querySelector(".requirements-slider");
+            let accessedLeads = JSON.parse(localStorage.getItem("accessedLeads")) || [];  // Track weekly viewed leads
+
+            // ✅ Ensure scrolling always works
+            slider.style.overflowY = "scroll";
+            slider.style.maxHeight = "400px";
+
+            // ✅ Fetch Leads and Populate UI
+            fetch("http://127.0.0.1:8000/get_leads/", {
+                headers: { "Authorization": `Bearer ${authToken}` }
+            })
+            .then(response => response.json())
+            .then(data => {
+                slider.innerHTML = "";  // Clear old leads
+
+                data.forEach(lead => {
+                    const item = document.createElement("div");
+                    item.classList.add("requirement-item");
+                    item.innerHTML = `
+                        <div class="requirement-header">
+                            <h4>${lead.products}</h4>
+                        </div>
+                        <div class="requirement-info">
+                            <span><strong>Country:</strong> ${lead.country}</span>
+                            <span><strong>Phone:</strong> <span class="lead-phone">XXXXXXXXXX</span></span>  
+                        </div>
+                        <div class="requirement-company">
+                            <span><strong>Company:</strong> <span class="lead-company">XXXXXXXX</span></span>  
+                            <span><strong>Email:</strong> <span class="lead-email">XXXXXXXXXX</span></span>  
+                        </div>
+                        <div class="requirement-company">
+                            <span><strong>Quantity:</strong> ${lead.quantity}</span>
+                            <button class="view-lead" data-id="${lead.id}">View Lead</button>
+                        </div>
+                    `;
+                    slider.appendChild(item);
+                });
+
+                // ✅ Reattach event listeners for View Lead buttons
+                document.querySelectorAll(".view-lead").forEach(button => {
+                    button.addEventListener("click", function () {
+                        handleViewLead(button);
+                    });
+                });
+            })
+            .catch(error => console.error("Error fetching leads:", error));
+        });
+
+        // ✅ Function to Handle "View Lead" Button Click
+        function handleViewLead(button) {
+            const authToken = localStorage.getItem("authToken");
+            let accessedLeads = JSON.parse(localStorage.getItem("accessedLeads")) || [];
+            const leadId = button.dataset.id;
+            const parentItem = button.closest(".requirement-item");
+
+            // ✅ Prevent users from viewing more than 2 leads per week
+            if (accessedLeads.length >= 2) {
+                alert("You have reached your weekly limit of 2 leads.");
+                return;
+            }
+
+            fetch(`http://127.0.0.1:8000/lead-details/${leadId}/`, {
+                headers: { "Authorization": `Bearer ${authToken}` }
+            })
+            .then(response => response.json())
+            .then(leadData => {
+                if (leadData.error) {
+                    alert(leadData.error);
+                } else {
+                    // ✅ Update UI with actual decrypted data
+                    parentItem.querySelector(".lead-phone").textContent = decryptData(leadData.phone_no);
+                    parentItem.querySelector(".lead-company").textContent = decryptData(leadData.company_name);
+                    parentItem.querySelector(".lead-email").textContent = decryptData(leadData.company_email);
+
+                    accessedLeads.push(leadId);  // Store accessed lead
+                    localStorage.setItem("accessedLeads", JSON.stringify(accessedLeads));
+
+                    button.remove();  // Remove "View Lead" button after viewing
+                }
+            })
+            .catch(error => console.error("Error fetching lead details:", error));
+        }
+
+        // ✅ Simple decryption function (Adjust based on encryption method)
+        function decryptData(encryptedText) {
+            return atob(encryptedText);  // Example: Base64 decoding
+        }
+
+    </script> -->
 
 </body>
 </html>
