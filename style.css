@@ -4923,6 +4923,7 @@ thead {
 /*----------------------------------------*/
 /* 6.8 Li's Compare Page
 /*----------------------------------------*/
+
 .compare-table .table td,
 .compare-table .table th {
 	vertical-align: middle;
@@ -4939,7 +4940,7 @@ thead {
 	background-color: rgba(0, 0, 0, .02)
 }
 .compare-table .table tbody th {
-	min-width: 200px;
+	min-width: 150px;
 }
 .compare-table .table tbody td {
 	min-width: 250px;
@@ -4947,6 +4948,14 @@ thead {
 .compare-pdoduct-image {
 	max-width: 200px;
 	display: inline-block;
+}
+.third {
+	margin-left: -45px;
+}
+.green {
+	color: green;
+	font-size: 18px;
+	font-weight: bold;
 }
 .compare-pdoduct-image a {
 	display: inline-block;
