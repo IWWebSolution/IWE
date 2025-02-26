@@ -25,9 +25,8 @@ Here’s an overview of the key files and their purposes:
 
 ### Core Files
 - **`index.html`**: The primary and only index file used for all purposes.
-- **`compare.html`**: Displays membership plans offered by the company. (May be renamed in the future to avoid confusion.)
-- **`checkout1.html`**: Checkout page for the first type of membership plan.
-- **`checkout2.html`**: Checkout page for the second type of membership plan.
+- **`membership.html`**: Displays membership plans offered by the company.
+- **`checkout.html [1,2,3]`**: Checkout page for the three types of membership plan.
 
 ### Reusable Components
 - **`head.html`**: Contains the `<head>` section (meta tags, stylesheets, etc.).
@@ -39,10 +38,10 @@ Here’s an overview of the key files and their purposes:
 - **`register.html`**: User registration page.
 
 ### Legal Pages
-- **`privacypolicy0.html`**: Incomplete privacy policy (placeholder for future use).
-- **`privacypolicy1.html`**: First version of the privacy policy.
-- **`tnc1.html`**: First version of the terms and conditions.
-- **`tnc2.html`**: Second version of the terms and conditions.
+- **`privacy-policy.html`**: Complete privacy policy.
+- **`refund-policy.html`**: Complete refund policy.
+- **`tnc.html`**: Incomplete version of the terms and conditions.
+- **`shipping-policy`**:Complete shipping policy.
 
 ---
 
@@ -51,10 +50,10 @@ Here’s an overview of the key files and their purposes:
    - The `head`, `header`, and `footer` sections are dynamically loaded using JavaScript at the bottom of each HTML file. This reduces redundancy and makes updates easier.
 
 2. **Membership Plans**:
-   - The `compare.html` file displays all membership plans offered by the company. It serves as a comparison page for users to choose the best plan.
+   - The `membership.html` file displays all membership plans offered by the company. It serves as a comparison page for users to choose the best plan.
 
 3. **Checkout Process**:
-   - Two separate checkout pages (`checkout1.html` and `checkout2.html`) are provided for different types of membership plans.
+   - Three separate checkout pages (`checkout1.html`, `checkout2.html`  and `checkout3.html`) are provided for different types of membership plans.
 
 4. **Authentication**:
    - Separate files for login (`login.html`) and registration (`register.html`) ensure a clean and organized user experience.
@@ -65,8 +64,7 @@ Here’s an overview of the key files and their purposes:
 ---
 
 ## Future Improvements
-- **Rename `compare.html`**: Consider renaming `compare.html` to something more descriptive like `membership-plans.html` to avoid confusion.
-- **Complete `privacypolicy0.html`**: Finish the incomplete privacy policy or remove it if unnecessary.
+- **Complete `termsandconditions.html`**: Finish the incomplete privacy policy or remove it if unnecessary.
 - **Responsive Design**: Ensure all pages are fully responsive and optimized for mobile devices.
 - **Search Functionality**: Add a search bar to help users find specific membership plans or content.
 - **User Dashboard**: Create a user dashboard for logged-in users to manage their membership and profile.
