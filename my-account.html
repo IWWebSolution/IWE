@@ -2,6 +2,33 @@
 <html lang="en">
 <div id="head"></div>
 <script src="https://cdn.tiny.cloud/1/6ndzbwm4oqiwnddx1clb5gaz0fcyjobgc4mit34d5c5ez4cc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<style>
+    .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .popup-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        position: relative;
+    }
+    .close-popup {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+</style>
 <body>
     <div id="header"></div> 
     
@@ -390,6 +417,19 @@
         </div>
     </div>
     <!-- My Account End -->
+
+    <div id="popupForm" class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close-popup" id="closePopup">&times;</span>
+            <h2>Lead Details</h2>
+            <p><strong>Product:</strong> <span id="popupProduct"></span></p>
+            <p><strong>Quantity:</strong> <span id="popupQuantity"></span></p>
+            <p><strong>Company Name:</strong> <span id="popupCompanyName"></span></p>
+            <p><strong>Company Email:</strong> <span id="popupCompanyEmail"></span></p>
+            <p><strong>Phone Number:</strong> <span id="popupPhone"></span></p>
+            <p><strong>Country:</strong> <span id="popupCountry"></span></p>
+        </div>
+    </div>
         
     <div id="footer"></div>     
         
@@ -404,6 +444,66 @@
     
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const popup = document.getElementById("popupForm");
+            const closePopup = document.querySelector(".close-popup");
+
+            // Function to open the popup
+            function openPopup() {
+                popup.style.display = "block";
+            }
+
+            // Function to close the popup
+            closePopup.addEventListener("click", function () {
+                popup.style.display = "none";
+            });
+
+            // Close the popup when clicking outside the form
+            window.addEventListener("click", function (event) {
+                if (event.target === popup) {
+                    popup.style.display = "none";
+                }
+            });
+
+            // Add event listener to open popup when clicking a button
+            document.querySelectorAll(".view-lead").forEach(button => {
+                button.addEventListener("click", openPopup);
+            });
+
+            // Handle form submission
+            document.getElementById("popupFormContent").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                // Collect form data
+                const formData = {
+                    product: document.getElementById("popupProduct").value,
+                    quantity: document.getElementById("popupQuantity").value,
+                    company_name: document.getElementById("popupCompanyName").value,
+                    company_email: document.getElementById("popupCompanyEmail").value,
+                    phone_number: document.getElementById("popupPhone").value,
+                    country_name: document.getElementById("popupCountry").value,
+                };
+
+                console.log("Form Data Submitted:", formData);
+
+                // Example: Send form data via fetch to backend API (adjust URL)
+                fetch("/api/submit-lead/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Your request has been submitted!");
+                    popup.style.display = "none"; // Close popup after submission
+                })
+                .catch(error => console.error("Error:", error));
+            });
+        });
+
+    </script>
 
     <script>
         // Retrieve user details from localStorage
@@ -569,8 +669,8 @@
         });
     </script>
     <script>
-       document.addEventListener("DOMContentLoaded", function () {
-            fetch("http://127.0.0.1:8000/get_leads/")  // Update with your actual API URL
+      document.addEventListener("DOMContentLoaded", function () {
+            fetch("http://127.0.0.1:8000/get_leads/")  // Fetch leads from your backend
                 .then(response => response.json())
                 .then(data => {
                     const slider = document.querySelector(".requirements-slider");
@@ -593,24 +693,48 @@
                             </div>
                             <div class="requirement-company">
                                 <span><strong>Quantity:</strong> ${lead.quantity}</span>
-                                <button class="view-lead" data-id="${lead.id}">View Lead</button>
+                                <button class="view-lead" data-id="${lead.id}" 
+                                        data-product="${lead.products}" 
+                                        data-quantity="${lead.quantity}" 
+                                        data-company="${lead.company_name}" 
+                                        data-email="${lead.company_email}" 
+                                        data-phone="${lead.phone_no}" 
+                                        data-country="${lead.country}">
+                                    View Lead
+                                </button>
                             </div>
                         `;
                         slider.appendChild(item);
                     });
 
-                    // ✅ Fix: Use event delegation to handle click event dynamically
+                    // ✅ Event delegation for dynamically added buttons
                     document.body.addEventListener("click", function (event) {
                         if (event.target.classList.contains("view-lead")) {
-                            const leadId = event.target.dataset.id;
-                            window.location.href = `http://127.0.0.1:8000/lead-details/${leadId}/`;  // Directly redirect to lead details
+                            const button = event.target;
+
+                            // Fill popup with selected lead details
+                            document.getElementById("popupProduct").textContent = button.dataset.product;
+                            document.getElementById("popupQuantity").textContent = button.dataset.quantity;
+                            document.getElementById("popupCompanyName").textContent = button.dataset.company;
+                            document.getElementById("popupCompanyEmail").textContent = button.dataset.email;
+                            document.getElementById("popupPhone").textContent = button.dataset.phone;
+                            document.getElementById("popupCountry").textContent = button.dataset.country;
+
+                            // Show the popup
+                            document.getElementById("popupForm").style.display = "block";
                         }
                     });
+
+                    // Close popup when clicking outside
+                    document.getElementById("closePopup").addEventListener("click", function () {
+                        document.getElementById("popupForm").style.display = "none";
+                    });
                 })
-            .catch(error => console.error("Error fetching leads:", error));
+                .catch(error => console.error("Error fetching leads:", error));
         });
 
-    </script> -->
+
+    </script> 
     <!-- <script>
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -686,7 +810,7 @@
         });
     </script>
 
-    <!-- <script>
+    <script>
 
         document.addEventListener("DOMContentLoaded", function () {
             const authToken = localStorage.getItem("authToken");
