@@ -13,7 +13,7 @@ This project is a website designed to showcase membership plans and provide a se
 5. [How to Run](#how-to-run)
 6. [Contributing](#contributing)
 
----
+--- 
 
 ## Project Overview
 The website is built with modularity in mind, ensuring reusable components like the header, footer, and head sections are dynamically loaded using JavaScript. This reduces code duplication and makes maintenance easier. The primary focus is on membership plans, login/registration, and checkout processes.

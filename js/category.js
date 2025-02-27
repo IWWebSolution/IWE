@@ -9,7 +9,7 @@ window.addEventListener('load', function () {
       prev: '.glider-prev',
       next: '.glider-next',
     },
-    responsive: [
+    responsive: [ 
       {
         // screens greater than >= 775px
         breakpoint: 500,
