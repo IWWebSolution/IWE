@@ -208,7 +208,7 @@ const categories = [
         subcategories: ['Herbal Raw Material', 'Herbal Formulation Products', 'Herbal Medicines', 'Honey'],
       },
       {
-        name: 'Ayurvedic Consultants',
+        name: 'Ayurvedic Consultants', 
         subcategories: [
           'Hair Loss Treatment Service',
           'Homeopathic Skin Treatment Service',
@@ -218,7 +218,6 @@ const categories = [
       },
       {
         name: 'Herbal Foods',
-        subcategories: ['Pure & Natural Herbs', 'Pure Herbs', 'Aloe Vera', 'Split Cassia', 'Herb Plant'],
       },
       {
         name: 'Pure & Natural Herbs',

@@ -1570,7 +1570,7 @@ textarea:focus {
 	z-index: 1;
 }
 .custom-category-list {
-	font-size: 16px;
+	font-size: 24px;
 	line-height: 1.8;
 }
 .custom-view-all-btn {
@@ -3471,6 +3471,9 @@ text-align: center;
 .footer-links > ul > li > a:hover {
 	color: #242424;
 	text-decoration: underline;
+}
+.footer-static-bottom {
+	max-height: 50px;
 }
 /*----------------------------------------*/
 /*  03. Home Page Two
