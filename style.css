@@ -1376,11 +1376,15 @@ textarea:focus {
 }
 
 .btn-close-red {
-	filter: invert(28%) sepia(77%) saturate(744%) hue-rotate(342deg) brightness(90%) contrast(98%);
+    filter: invert(15%) sepia(95%) saturate(1500%) hue-rotate(350deg) brightness(100%) contrast(110%);
+	border: 2px solid white; /* Helps define the red button */
+    padding: 4px;
+    border-radius: 50%;
+	box-shadow: 0 0 6px rgba(255, 0, 0, 0.6);
 }
 
 .btn-close-red:hover {
-	filter: invert(20%) sepia(100%) saturate(1000%) hue-rotate(350deg) brightness(85%) contrast(105%);
+    filter: invert(10%) sepia(100%) saturate(1800%) hue-rotate(355deg) brightness(95%) contrast(120%);
 }
 
 @keyframes scaleUp {
@@ -4919,6 +4923,7 @@ thead {
 /*----------------------------------------*/
 /* 6.8 Li's Compare Page
 /*----------------------------------------*/
+
 .compare-table .table td,
 .compare-table .table th {
 	vertical-align: middle;
@@ -4935,7 +4940,7 @@ thead {
 	background-color: rgba(0, 0, 0, .02)
 }
 .compare-table .table tbody th {
-	min-width: 200px;
+	min-width: 150px;
 }
 .compare-table .table tbody td {
 	min-width: 250px;
@@ -4943,6 +4948,14 @@ thead {
 .compare-pdoduct-image {
 	max-width: 200px;
 	display: inline-block;
+}
+.third {
+	margin-left: -45px;
+}
+.green {
+	color: green;
+	font-size: 18px;
+	font-weight: bold;
 }
 .compare-pdoduct-image a {
 	display: inline-block;

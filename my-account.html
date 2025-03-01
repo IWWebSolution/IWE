@@ -37,7 +37,7 @@
         <div class="container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">My Account</li>
+                <li class="breadcrumb-item active">My Account</li> 
             </ul>
         </div>
     </div>
@@ -55,10 +55,10 @@
                         <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab">
                             <i class="fa fa-shopping-bag"></i> Membership Plan
                         </a>
-                        <!--<a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab">
-                            <i class="fa fa-credit-card"></i> Seller Enquiry
+                        <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab">
+                            <i class="fa fa-credit-card"></i> Previous Lead Enquiries
                         </a>
-                        <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab">
+                        <!--<a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab">
                             <i class="fa fa-map-marker"></i> Product Enquiry
                         </a>
                         <a class="nav-link" id="addprod-nav" data-toggle="pill" href="#addprod-tab" role="tab">
@@ -90,6 +90,7 @@
                                 From your account dashboard you can view your recent enquiry, manage your account, edit your 
                                 password and account details.
                             </p> 
+
                             <!-- Leads Section -->
                             <section class="product-area li-laptop-product li-trendding-products best-sellers">
                                 <div class="container">
@@ -116,8 +117,8 @@
                                 <p>Loading your membership details...</p>
                             </div>
                         </div>
-                        <!--<div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
-                            <h4>Seller Enquiry</h4>
+                        <div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
+                            <h4>Previous Lead Enquiries</h4>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
@@ -136,17 +137,20 @@
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td>Product Name</td>
-                                            <td>01 Jan 2020</td>
-                                            <td>$99</td>
-                                            <td>Approved</td>
-                                            <td><button class="btn">View</button></td>
+                                            <td>Contact Person</td>
+                                            <td>contact@business.com</td>
+                                            <td>+918646329626</td>
+                                            <td>Business</td>
+                                            <td>Turmeric</td>
+                                            <td>Malaysia</td>
+                                            <td>give me turmeric</td>
+                                            <td>2 Jan 2024 - 01:20 PM</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
+                        <!--<div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
                             <h4>Product Enquiry</h4>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
@@ -668,7 +672,8 @@
             }
         });
     </script>
-    <script>
+    <!-- There are leads of vieww -->
+    <!-- <script>
       document.addEventListener("DOMContentLoaded", function () {
             fetch("http://127.0.0.1:8000/get_leads/")  // Fetch leads from your backend
                 .then(response => response.json())
@@ -730,11 +735,10 @@
                         document.getElementById("popupForm").style.display = "none";
                     });
                 })
-                .catch(error => console.error("Error fetching leads:", error));
+            .catch(error => console.error("Error fetching leads:", error));
         });
 
-
-    </script> 
+    </script>
     <!-- <script>
 
         document.addEventListener("DOMContentLoaded", function () {

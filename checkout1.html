@@ -113,26 +113,32 @@
                     <div class="your-order">
                         <h3>Membership Details</h3>
                         <center>
-                            <img src="images/product/large-size/free.png" alt="Membership Plan" style="align-items: center;">
-                        </center>
+                            <img src="images/product/large-size/gold.png" alt="Membership Plan" style="align-items: center;">
+                        </center> 
                         <div class="your-order-table table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="cart-product-name">Product</th>
-                                        <th class="cart-product-total">Amount</th>
+                                        <th>Product</th>
+                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Free Membership <strong class="product-quantity">× 1</strong></td>
-                                        <td>Rs. 0.00</td>
+                                        <td>Gold Membership <strong class="product-quantity">× 1</strong></td>
+                                        <td>Rs. 24000.00</td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td>18% GST</td>
+                                        <td>Rs. 4320.00</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr class="order-total">
                                         <th>Order Total</th>
-                                        <td><strong><span class="amount">Rs. 0.00</span></strong></td>
+                                        <td><strong><span class="amount">Rs. 28320.00</span></strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -145,7 +151,7 @@
                         <div class="payment-option" onclick="selectPayment('bank')">
                             <i class="fas fa-university"></i>
                             <h5>Direct Bank Transfer</h5>
-                        </div> 
+                        </div>
                         <div class="payment-option" onclick="selectPayment('qr')">
                             <i class="fas fa-qrcode"></i>
                             <h5>Scan QR</h5>
@@ -162,7 +168,7 @@
                             <i class="fas fa-credit-card"></i>
                             <h5>Credit/Debit Card</h5>
                         </div>
-                        <button class="btn-pay" onclick="processPayment()">Proceed to Login</button>
+                        <button class="btn-pay" onclick="processPayment()">Proceed to Payment</button>
                     </div>
                 </div>
             </div>
@@ -190,11 +196,14 @@
         }
 
         function processPayment() {
-        // Redirect to the login page
-        window.location.href = "/login/"; // Replace with your actual login page URL
-    }
+            if (!selectedPaymentMethod) {
+                alert('Please select a payment method.');
+                return;
+            }
+            alert(`Proceeding with ${selectedPaymentMethod} payment...`);
+        }
 
-    document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
             // Change href dynamically for .redirect links
             document.querySelectorAll(".redirect").forEach(link => {
                 link.setAttribute("href", "maintenance.html");
