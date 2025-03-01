@@ -1526,6 +1526,102 @@ textarea:focus {
 }
 
 /*----------------------------------------*/
+/* 1.17 Long Category
+/*----------------------------------------*/
+
+.custom-category-container {
+	border: 1px solid #ccc;
+	padding: 15px;
+	border-radius: 5px;
+}
+.custom-category-header {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+.custom-category-content {
+	display: flex;
+	gap: 20px;
+}
+.custom-left-panel {
+	flex: 1;
+	padding: 20px;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 250px;
+	position: relative;
+	background: center/cover no-repeat; 
+}
+.custom-left-panel::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 0;
+	border-radius: 5px;
+}
+.custom-left-panel div {
+	position: relative;
+	z-index: 1;
+}
+.custom-category-list {
+	font-size: 24px;
+	line-height: 1.8;
+}
+.custom-view-all-btn {
+	background: red;
+	color: white;
+	padding: 10px 15px;
+	border-radius: 5px;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	font-weight: bold;
+	width: 120px;
+}
+.custom-right-panel {
+	flex: 2;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 15px;
+}
+.custom-sub-category {
+	border: 1px solid #ddd;
+	padding: 10px;
+	border-radius: 5px;
+	background: #f9f9f9;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.custom-sub-category h4 {
+	margin: 0;
+	font-size: 16px;
+	font-weight: bold;
+}
+.custom-sub-category img {
+	width: 100%;
+	height: 80px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+.custom-sub-category ul {
+	padding: 0;
+	margin: 10px 0;
+	list-style-type: none;
+}
+.custom-sub-category ul li {
+	font-size: 14px;
+	color: #007bff;
+	cursor: pointer;
+}
+
+/*----------------------------------------*/
 /*  02. Home Page One
 /*----------------------------------------*/
 /*----------------------------------------*/
@@ -3375,6 +3471,9 @@ text-align: center;
 .footer-links > ul > li > a:hover {
 	color: #242424;
 	text-decoration: underline;
+}
+.footer-static-bottom {
+	max-height: 50px;
 }
 /*----------------------------------------*/
 /*  03. Home Page Two
