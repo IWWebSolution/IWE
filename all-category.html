@@ -19,7 +19,7 @@
         <h1 class="m-4">All Categories</h1>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6">
             <div class="col mb-4">
-                <div class="halo" onclick="openPopup('Food Products & Beverages', categories[0].subcategories)">
+                <div class="halo" onclick="openPopup('Food Products & Beverages', categories[0].subcategories, 'food-products-beverages')">
                     <img src="images/category/0.png" alt="Food Products & Beverages" class="halo-img-top">
                     <div class="halo-body text-center">
                         <h5 class="halo-title">Food Products & Beverages</h5> 
@@ -269,6 +269,17 @@
                 });
             });
         });
+    </script>
+    <script>
+        function handleRealmClick(realmName, realmSlug) {
+            const maintenanceRealms = ["Electronics & Electrical Goods", "Medical Equipment"]; // Example realms for maintenance
+    
+            if (maintenanceRealms.includes(realmName)) {
+                window.location.href = "maintenance.html";
+            } else {
+                window.location.href = `realm.html?realm=${realmSlug}`;
+            }
+        }
     </script>
 </body>
 

@@ -41,67 +41,62 @@ window.addEventListener('load', function () {
 
 let backStack = [];
 
-function openPopup(title, subcategories) {
-  // If there are no subcategories, make the category clickable and navigate to a new page
+function openPopup(title, subcategories, realmSlug) {
   if (!subcategories || subcategories.length === 0) {
-    window.location.href = `#${title}`; // Replace with the actual URL you want to navigate to
-    return;
+      // If no subcategories, navigate to realm.html
+      window.location.href = `realm.html?realm=${realmSlug}`;
+      return;
   }
 
   // Make the heading clickable
   const popupHeader = document.getElementById('popup-header');
-  popupHeader.innerHTML = `<a href="#${title}" target="_blank">${title}</a>`; // Wrap the title in an <a> tag
+  popupHeader.innerHTML = `<a href="realm.html?realm=${realmSlug}">${title}</a>`;
 
-  // Populate the subcategories
+  // Populate subcategories
   const list = document.getElementById('popup-list');
   list.innerHTML = ''; // Clear previous items
   subcategories.forEach((subcategory) => {
-    const li = document.createElement('li');
-    const link = document.createElement('a');
-    link.href = `#${subcategory.name || subcategory}`; // Set the link (you can modify this to point to the desired URL)
-    link.textContent = subcategory.name || subcategory; // Handle nested or flat subcategories
-    link.style.cursor = 'pointer';
-    link.target = '_blank'; // Open in a new tab
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = "#"; // Prevent default navigation
+      link.textContent = subcategory.name;
+      link.style.cursor = 'pointer';
 
-    // Attach click event to open subcategories, if available
-    link.onclick = (e) => {
-      if (subcategory.subcategories) {
-        e.preventDefault(); // Prevent the link from navigating
-        backStack.push({ title, subcategories }); // Save current state
-        openSubPopup(subcategory.name, subcategory.subcategories);
-      }
-    };
+      // Attach click event to open subcategories or navigate
+      link.onclick = (e) => {
+          e.preventDefault();
+          if (subcategory.subcategories && subcategory.subcategories.length > 0) {
+              backStack.push({ title, subcategories, realmSlug });
+              openSubPopup(subcategory.name, subcategory.subcategories, realmSlug);
+          } else {
+              // If no sub-subcategories, navigate to domain.html
+              window.location.href = `domain.html?slug=${subcategory.name.toLowerCase().replace(/\s+/g, '-')}`;
+          }
+      };
 
-    li.appendChild(link);
-    list.appendChild(li);
+      li.appendChild(link);
+      list.appendChild(li);
   });
 
-  // Toggle back button visibility
-  document.getElementById('back-button').style.display =
-    backStack.length > 0 ? 'block' : 'none';
-
-  // Show popup and overlay
+  document.getElementById('back-button').style.display = backStack.length > 0 ? 'block' : 'none';
   document.getElementById('popup').style.display = 'block';
   document.getElementById('popup-overlay').style.display = 'block';
 }
 
-// Function to open a sub-pop-up
-function openSubPopup(title, subSubcategories) {
-  // Make the heading clickable
+// Open sub-subcategories popup
+function openSubPopup(title, subSubcategories, realmSlug) {
   const popupHeader = document.getElementById('popup-header');
-  popupHeader.innerHTML = `<a href="#${title}" target="_blank">${title}</a>`; // Wrap the title in an <a> tag
+  popupHeader.innerHTML = `<a href="#">${title}</a>`;
 
-  // Populate the sub-subcategories
   const list = document.getElementById('popup-list');
   list.innerHTML = ''; // Clear previous items
   subSubcategories.forEach((subSubcategory) => {
-    const li = document.createElement('li');
-    const link = document.createElement('a');
-    link.href = `#${subSubcategory}`; // Set the link (you can modify this to point to the desired URL)
-    link.textContent = subSubcategory;
-    link.target = '_blank'; // Open in a new tab
-    li.appendChild(link);
-    list.appendChild(li);
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `domain.html?slug=${subSubcategory.toLowerCase().replace(/\s+/g, '-')}`;
+      link.textContent = subSubcategory;
+      li.appendChild(link);
+      list.appendChild(li);
   });
 
   document.getElementById('back-button').style.display = 'block';
